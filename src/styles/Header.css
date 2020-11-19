@@ -1,0 +1,8 @@
+.header {
+  min-height: 80px;
+  background-color: lightskyblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

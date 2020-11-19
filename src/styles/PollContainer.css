@@ -1,0 +1,7 @@
+.main-poll {
+  background-color: lightgreen;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}

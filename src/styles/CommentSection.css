@@ -1,0 +1,15 @@
+.comments-section {
+  background-color: lightblue;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.comments-section-heading {
+  text-align: start;
+}
+.comments-container {
+  display: grid;
+  row-gap: 8px;
+}
