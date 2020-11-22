@@ -1,8 +1,24 @@
 .header {
   min-height: 80px;
-  background-color: lightskyblue;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.left {
+  margin-right: auto;
+  margin-left: 30px;
+}
+
+.header-link {
+  margin-right: 30px;
+  text-decoration: none;
+  color: black;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+  text-decoration-color: #f26475;
 }
