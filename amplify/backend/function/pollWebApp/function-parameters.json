@@ -1,0 +1,19 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "pollsDynamoDb": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "responsesDynamoDb": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}

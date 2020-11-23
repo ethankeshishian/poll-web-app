@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/polls",
+            "lambdaFunction": "pollWebApp",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "pollApi",
+    "apiName": "pollApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "pollWebApp"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-cs97pollwebapp-test-90732-authRole",
+        "unAuthRoleName": "amplify-cs97pollwebapp-test-90732-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "pollWebApp",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "4d827d5b"
+}

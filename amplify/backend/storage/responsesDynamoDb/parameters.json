@@ -1,0 +1,7 @@
+{
+    "tableName": "responses",
+    "partitionKeyName": "poll_id",
+    "partitionKeyType": "S",
+    "sortKeyName": "user_id",
+    "sortKeyType": "S"
+}
