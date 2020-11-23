@@ -1,5 +1,5 @@
 .comments-section {
-  background-color: lightblue;
+  background-color: white;
   padding: 16px;
   display: flex;
   align-items: flex-start;
@@ -7,9 +7,20 @@
   flex-direction: column;
 }
 .comments-section-heading {
+  font-size: 36px;
   text-align: start;
 }
 .comments-container {
-  display: grid;
-  row-gap: 8px;
+  width: 100%;
+  /* display: grid; */
+  /* background-color: grey;
+  row-gap: 1px; */
+}
+
+.comment-separator {
+  border: 0.5px solid #9e9e9e;
+  color: #9e9e9e;
+  background-color: #9e9e9e;
+  width: 100%;
+  height: 0px;
 }

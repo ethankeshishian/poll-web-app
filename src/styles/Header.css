@@ -13,12 +13,15 @@
 }
 
 .header-link {
-  margin-right: 30px;
   text-decoration: none;
   color: black;
 }
 
-.header-link:hover {
+.right {
+  margin-right: 30px;
+}
+
+.right:hover {
   text-decoration: underline;
   text-decoration-color: #f26475;
 }
