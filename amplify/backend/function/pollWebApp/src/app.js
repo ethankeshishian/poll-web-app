@@ -166,12 +166,14 @@ app.post(path + singlePollSuffix + respondToPollSuffix, function (req, res) {
       id: pollId,
     },
     UpdateExpression: "ADD results.responses.#responseId :val",
+    ConditionExpression: "attribute_not_exists(timestamp_closed)",
     ExpressionAttributeValues: {
       ":val": 1,
     },
     ExpressionAttributeNames: {
       "#responseId": responseId,
     },
+    ReturnValues: "ALL_NEW",
   };
 
   dynamodb.update(queryParams, (err, data) => {
