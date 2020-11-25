@@ -30,6 +30,13 @@
             "Name",
             "Arn"
           ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "cs97pollwebappa7bc17b0",
+          "attributes": [
+            "UserPoolId"
+          ]
         }
       ]
     }

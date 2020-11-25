@@ -4,7 +4,21 @@
             "name": "/polls",
             "lambdaFunction": "pollWebApp",
             "privacy": {
-                "open": true
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
             }
         }
     ],
@@ -16,10 +30,10 @@
         }
     ],
     "privacy": {
-        "auth": 0,
-        "unauth": 0,
-        "authRoleName": "amplify-cs97pollwebapp-test-90732-authRole",
-        "unAuthRoleName": "amplify-cs97pollwebapp-test-90732-unauthRole"
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "amplify-cs97pollwebapp-devv-190142-authRole",
+        "unAuthRoleName": "amplify-cs97pollwebapp-devv-190142-unauthRole"
     },
     "dependsOn": [
         {
@@ -31,5 +45,5 @@
             ]
         }
     ],
-    "uuid": "4d827d5b"
+    "uuid": "8de5de4b"
 }
