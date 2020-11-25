@@ -29,16 +29,7 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
   responsesTableName = responsesTableName + "-" + process.env.ENV;
 }
 
-const userIdPresent = false; // TODO: update in case is required to use that definition
-const partitionKeyName = "type";
-const partitionKeyType = "S";
-const sortKeyName = "timestamp";
-const sortKeyType = "S";
-const hasSortKey = sortKeyName !== "";
 const path = "/polls";
-const UNAUTH = "UNAUTH";
-const hashKeyPath = "/:" + partitionKeyName;
-const sortKeyPath = hasSortKey ? "/:" + sortKeyName : "";
 const latestPollSuffix = "/latest";
 const singlePollSuffix = "/:poll";
 const respondToPollSuffix = "/respond/:response";
@@ -57,16 +48,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-// convert url string param to expected Type
-const convertUrlType = (param, type) => {
-  switch (type) {
-    case "N":
-      return Number.parseInt(param);
-    default:
-      return param;
-  }
-};
 
 /********************************
  * HTTP Get method for getting latest poll *
@@ -182,54 +163,6 @@ app.post(path + singlePollSuffix + respondToPollSuffix, function (req, res) {
       res.json({ error: "Could not load items: " + err });
     } else {
       res.json(data);
-    }
-  });
-});
-
-/************************************
- * HTTP put method for insert object *
- *************************************/
-
-app.put(path, function (req, res) {
-  if (userIdPresent) {
-    req.body["userId"] =
-      req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
-
-  let putItemParams = {
-    TableName: tableName,
-    Item: req.body,
-  };
-  dynamodb.put(putItemParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: err, url: req.url, body: req.body });
-    } else {
-      res.json({ success: "put call succeed!", url: req.url, data: data });
-    }
-  });
-});
-
-/************************************
- * HTTP post method for insert object *
- *************************************/
-
-app.post(path, function (req, res) {
-  if (userIdPresent) {
-    req.body["userId"] =
-      req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
-
-  let putItemParams = {
-    TableName: tableName,
-    Item: req.body,
-  };
-  dynamodb.put(putItemParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: err, url: req.url, body: req.body });
-    } else {
-      res.json({ success: "post call succeed!", url: req.url, data: data });
     }
   });
 });
