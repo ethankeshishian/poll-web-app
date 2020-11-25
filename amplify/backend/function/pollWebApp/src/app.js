@@ -131,6 +131,12 @@ app.post(
   suggestionRoutes.voteOnSuggestedPoll
 );
 
+/*****************************************
+ * HTTP Post method to suggest a new poll for next day *
+ * /polls/suggested
+ *****************************************/
+app.post(path + nextDaysPollsSuffix, suggestionRoutes.createNewSuggestedPoll);
+
 app.listen(3000, function () {
   console.log("App started");
 });

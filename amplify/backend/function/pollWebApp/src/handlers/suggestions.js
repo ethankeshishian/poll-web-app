@@ -78,7 +78,61 @@ const voteOnSuggestedPoll = function (req, res) {
   });
 };
 
+/*****************************************
+ * HTTP Post method to suggest a new poll for next day *
+ * /polls/suggested
+ *****************************************/
+const createNewSuggestedPoll = function (req, res) {
+  const userId = req.user.Username;
+
+  const pollQuestion = req.body.poll_question;
+  const pollResponses = req.body.poll_responses;
+
+  if (!pollQuestion || !pollResponses) {
+    res.statusCode = 400;
+    res.json({
+      error: "Body Requires: poll_question and poll_responses",
+    });
+    return;
+  }
+
+  if (!userId) {
+    res.statusCode = 401;
+    res.json({ error: "Unauthenticated User" });
+    return;
+  }
+
+  // Do more checking on pollQuestion and pollResponses!!!
+
+  let queryParams = {
+    TableName: tableName,
+    Item: {
+      id: `Suggestion_${userId}`,
+      type: "poll_suggestion",
+      poll_question: pollQuestion,
+      poll_responses: pollResponses,
+      timestamp: new Date().toISOString(),
+      results: {
+        suggestions: {},
+        suggestions_total: 0,
+      },
+    },
+    ConditionExpression: "attribute_not_exists(id)",
+  };
+
+  dynamodb.put(queryParams, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.statusCode = 404;
+      res.json({ error: "Item not found" });
+    } else {
+      res.json(data);
+    }
+  });
+};
+
 module.exports = {
   viewSuggestedPolls,
   voteOnSuggestedPoll,
+  createNewSuggestedPoll,
 };
