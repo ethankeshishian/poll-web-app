@@ -17,15 +17,16 @@ var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware"
 var bodyParser = require("body-parser");
 var express = require("express");
 
+const pollRoutes = require("./handlers/poll");
+const suggestionRoutes = require("./handlers/suggestions");
+
 AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 let tableName = "polls";
-let responsesTableName = "responses";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
-  responsesTableName = responsesTableName + "-" + process.env.ENV;
 }
 
 const path = "/polls";
@@ -33,6 +34,8 @@ const latestPollSuffix = "/latest";
 const singlePollSuffix = "/:poll";
 const respondToPollSuffix = "/respond/:response";
 const commentOnPollSuffix = "/comment";
+const nextDaysPollsSuffix = "/suggested";
+const voteOnNextDaysPollSuffix = "/vote";
 
 const cognitoUserMiddleware = async (req, res, next) => {
   try {
@@ -55,7 +58,8 @@ const cognitoUserMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    next(error);
+    req.user = { Username: null };
+    next();
   }
 };
 
@@ -79,189 +83,53 @@ app.use(function (req, res, next) {
  * HTTP Get method for getting latest poll *
  ********************************/
 
-app.get(path + latestPollSuffix, function (req, res) {
-  let queryParams = {
-    TableName: tableName,
-    IndexName: "timestampIndex",
-    KeyConditionExpression: "#key = :value",
-    ExpressionAttributeNames: {
-      "#key": "type",
-    },
-    ExpressionAttributeValues: {
-      ":value": "poll",
-    },
-    // Get in descending time order (newest one first)
-    ScanIndexForward: false,
-    Limit: 1,
-  };
+app.get(path + latestPollSuffix, pollRoutes.getLatestPoll);
 
-  dynamodb.query(queryParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: "Could not load items: " + err });
-    } else {
-      res.json(data.Items);
-    }
-  });
-});
+/*****************************************
+ * HTTP Get method to get active poll suggestions *
+ * /polls/suggested
+ *****************************************/
+
+app.get(path + nextDaysPollsSuffix, suggestionRoutes.viewSuggestedPolls);
 
 /********************************
  * HTTP Get method for getting all polls *
  ********************************/
 
-app.get(path, function (req, res) {
-  let queryParams = {
-    TableName: tableName,
-    IndexName: "timestampIndex",
-    KeyConditionExpression: "#key = :value",
-    ExpressionAttributeNames: {
-      "#key": "type",
-    },
-    ExpressionAttributeValues: {
-      ":value": "poll",
-    },
-    // Get in descending time order (newest one first)
-    ScanIndexForward: false,
-  };
-
-  dynamodb.query(queryParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: "Could not load items: " + err });
-    } else {
-      res.json(data.Items);
-    }
-  });
-});
+app.get(path, pollRoutes.getAllPolls);
 
 /*****************************************
  * HTTP Get method for get single poll *
  *****************************************/
 
-app.get(path + singlePollSuffix, function (req, res) {
-  const pollId = req.params["poll"];
-
-  let queryParams = {
-    TableName: tableName,
-    Key: {
-      id: pollId,
-    },
-  };
-
-  dynamodb.get(queryParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: "Could not load items: " + err });
-    } else {
-      res.json(data);
-    }
-  });
-});
+app.get(path + singlePollSuffix, pollRoutes.getSinglePoll);
 
 /*****************************************
  * HTTP Post method to respond to single poll *
  *****************************************/
 
-app.post(path + singlePollSuffix + respondToPollSuffix, function (req, res) {
-  const pollId = req.params["poll"];
-  //const responseId = convertUrlType(req.params["response"], "N");
-  const responseId = req.params["response"];
-  const userId = req.user.Username;
-
-  if (!userId) {
-    res.statusCode = 401;
-    res.json({ error: "Unauthenticated User" });
-    return;
-  }
-
-  let queryParams = {
-    TableName: tableName,
-    Key: {
-      id: pollId,
-    },
-    UpdateExpression:
-      "ADD results.responses_totals.#responseId :val SET results.responses.#userId = :userResponse",
-    ConditionExpression:
-      "attribute_not_exists(timestamp_closed) AND attribute_not_exists(results.responses.#userId)",
-    ExpressionAttributeValues: {
-      ":val": 1,
-      ":userResponse": {
-        response: responseId,
-        timestamp: new Date().toISOString(),
-      },
-    },
-    ExpressionAttributeNames: {
-      "#responseId": responseId,
-      "#userId": userId,
-    },
-    ReturnValues: "ALL_NEW",
-  };
-
-  dynamodb.update(queryParams, (err, data) => {
-    if (err) {
-      res.statusCode = 404;
-      res.json({ error: "Item not found" });
-    } else {
-      res.json(data);
-    }
-  });
-});
+app.post(
+  path + singlePollSuffix + respondToPollSuffix,
+  pollRoutes.respondToSinglePoll
+);
 
 /*****************************************
  * HTTP POST method for commenting on poll *
  *****************************************/
 
-app.post(path + singlePollSuffix + commentOnPollSuffix, function (req, res) {
-  const pollId = req.params["poll"];
-  const userId = req.user.Username;
+app.post(
+  path + singlePollSuffix + commentOnPollSuffix,
+  pollRoutes.commentOnSinglePoll
+);
 
-  const commentText = req.body.comment;
-
-  if (!commentText) {
-    res.statusCode = 400;
-    res.json({ error: "No Comment" });
-    return;
-  }
-
-  if (!userId) {
-    res.statusCode = 401;
-    res.json({ error: "Unauthenticated User" });
-    return;
-  }
-
-  let queryParams = {
-    TableName: tableName,
-    Key: {
-      id: pollId,
-    },
-    UpdateExpression:
-      "SET #comments = list_append(:newComment, if_not_exists(#comments, :empty_list))",
-    ExpressionAttributeValues: {
-      ":newComment": [
-        {
-          commentText,
-          user_id: userId,
-          timestamp: new Date().toISOString(),
-        },
-      ],
-      ":empty_list": [],
-    },
-    ExpressionAttributeNames: {
-      "#comments": "comments",
-    },
-    ReturnValues: "ALL_NEW",
-  };
-
-  dynamodb.update(queryParams, (err, data) => {
-    if (err) {
-      console.log(err);
-      res.statusCode = 404;
-      res.json({ error: "Item not found" });
-    } else {
-      res.json(data);
-    }
-  });
-});
+/*****************************************
+ * HTTP Post method to vote on next day's poll *
+ * /polls/suggested/:id/vote
+ *****************************************/
+app.post(
+  path + nextDaysPollsSuffix + singlePollSuffix + voteOnNextDaysPollSuffix,
+  suggestionRoutes.voteOnSuggestedPoll
+);
 
 app.listen(3000, function () {
   console.log("App started");
@@ -270,4 +138,4 @@ app.listen(3000, function () {
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file
-module.exports = app;
+module.exports = { app, tableName, dynamodb };
