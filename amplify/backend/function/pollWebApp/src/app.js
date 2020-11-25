@@ -32,6 +32,7 @@ const path = "/polls";
 const latestPollSuffix = "/latest";
 const singlePollSuffix = "/:poll";
 const respondToPollSuffix = "/respond/:response";
+const commentOnPollSuffix = "/comment";
 
 const cognitoUserMiddleware = async (req, res, next) => {
   try {
@@ -198,6 +199,62 @@ app.post(path + singlePollSuffix + respondToPollSuffix, function (req, res) {
 
   dynamodb.update(queryParams, (err, data) => {
     if (err) {
+      res.statusCode = 404;
+      res.json({ error: "Item not found" });
+    } else {
+      res.json(data);
+    }
+  });
+});
+
+/*****************************************
+ * HTTP POST method for commenting on poll *
+ *****************************************/
+
+app.post(path + singlePollSuffix + commentOnPollSuffix, function (req, res) {
+  const pollId = req.params["poll"];
+  const userId = req.user.Username;
+
+  const commentText = req.body.comment;
+
+  if (!commentText) {
+    res.statusCode = 400;
+    res.json({ error: "No Comment" });
+    return;
+  }
+
+  if (!userId) {
+    res.statusCode = 401;
+    res.json({ error: "Unauthenticated User" });
+    return;
+  }
+
+  let queryParams = {
+    TableName: tableName,
+    Key: {
+      id: pollId,
+    },
+    UpdateExpression:
+      "SET #comments = list_append(:newComment, if_not_exists(#comments, :empty_list))",
+    ExpressionAttributeValues: {
+      ":newComment": [
+        {
+          commentText,
+          user_id: userId,
+          timestamp: new Date().toISOString(),
+        },
+      ],
+      ":empty_list": [],
+    },
+    ExpressionAttributeNames: {
+      "#comments": "comments",
+    },
+    ReturnValues: "ALL_NEW",
+  };
+
+  dynamodb.update(queryParams, (err, data) => {
+    if (err) {
+      console.log(err);
       res.statusCode = 404;
       res.json({ error: "Item not found" });
     } else {
