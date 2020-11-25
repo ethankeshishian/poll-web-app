@@ -165,27 +165,41 @@ app.post(path + singlePollSuffix + respondToPollSuffix, function (req, res) {
   const pollId = req.params["poll"];
   //const responseId = convertUrlType(req.params["response"], "N");
   const responseId = req.params["response"];
+  const userId = req.user.Username;
+
+  if (!userId) {
+    res.statusCode = 401;
+    res.json({ error: "Unauthenticated User" });
+    return;
+  }
 
   let queryParams = {
     TableName: tableName,
     Key: {
       id: pollId,
     },
-    UpdateExpression: "ADD results.responses.#responseId :val",
-    ConditionExpression: "attribute_not_exists(timestamp_closed)",
+    UpdateExpression:
+      "ADD results.responses_totals.#responseId :val SET results.responses.#userId = :userResponse",
+    ConditionExpression:
+      "attribute_not_exists(timestamp_closed) AND attribute_not_exists(results.responses.#userId)",
     ExpressionAttributeValues: {
       ":val": 1,
+      ":userResponse": {
+        response: responseId,
+        timestamp: new Date().toISOString(),
+      },
     },
     ExpressionAttributeNames: {
       "#responseId": responseId,
+      "#userId": userId,
     },
     ReturnValues: "ALL_NEW",
   };
 
   dynamodb.update(queryParams, (err, data) => {
     if (err) {
-      res.statusCode = 500;
-      res.json({ error: "Could not load items: " + err });
+      res.statusCode = 404;
+      res.json({ error: "Item not found" });
     } else {
       res.json(data);
     }
