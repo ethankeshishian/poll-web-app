@@ -81,31 +81,35 @@ app.use(function (req, res, next) {
 
 /********************************
  * HTTP Get method for getting latest poll *
+ * GET /polls/latest
  ********************************/
 
 app.get(path + latestPollSuffix, pollRoutes.getLatestPoll);
 
 /*****************************************
  * HTTP Get method to get active poll suggestions *
- * /polls/suggested
+ * GET /polls/suggested
  *****************************************/
 
 app.get(path + nextDaysPollsSuffix, suggestionRoutes.viewSuggestedPolls);
 
 /********************************
  * HTTP Get method for getting all polls *
+ * GET /polls
  ********************************/
 
 app.get(path, pollRoutes.getAllPolls);
 
 /*****************************************
  * HTTP Get method for get single poll *
+ * GET /polls/:id
  *****************************************/
 
 app.get(path + singlePollSuffix, pollRoutes.getSinglePoll);
 
 /*****************************************
  * HTTP Post method to respond to single poll *
+ * POST /polls/:id/respond/:response_id
  *****************************************/
 
 app.post(
@@ -115,6 +119,8 @@ app.post(
 
 /*****************************************
  * HTTP POST method for commenting on poll *
+ * POST /polls/:id/comment
+ * Body {"comment": "abc"}
  *****************************************/
 
 app.post(
@@ -124,7 +130,7 @@ app.post(
 
 /*****************************************
  * HTTP Post method to vote on next day's poll *
- * /polls/suggested/:id/vote
+ * POST /polls/suggested/:id/vote
  *****************************************/
 app.post(
   path + nextDaysPollsSuffix + singlePollSuffix + voteOnNextDaysPollSuffix,
@@ -133,7 +139,8 @@ app.post(
 
 /*****************************************
  * HTTP Post method to suggest a new poll for next day *
- * /polls/suggested
+ * POST /polls/suggested
+ * Body {"poll_question": "abc", "poll_responses": {"a": "yes", "b": "no"}}
  *****************************************/
 app.post(path + nextDaysPollsSuffix, suggestionRoutes.createNewSuggestedPoll);
 
