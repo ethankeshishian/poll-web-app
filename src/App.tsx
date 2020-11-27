@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import ProfilePage from './components/ProfilePage';
+import AboutPage from './components/AboutPage';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <div className="page-container">
         <HomePage />
         {/* <br />
-        <ProfilePage /> */}
+        <ProfilePage />
+        <br />
+        <AboutPage /> */}
       </div>
     </div>
   );
