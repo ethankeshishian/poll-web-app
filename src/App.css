@@ -2,8 +2,6 @@
   text-align: center;
 }
 
-.main-page {
+.page-container {
   margin: 16px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 }

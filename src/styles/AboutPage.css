@@ -1,0 +1,17 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text {
+  max-width: 846px;
+  font-size: 18px;
+}
+
+.about-text-box {
+  /* This works, but isn't mobile friendly */
+  width: 846px;
+  height: 250px;
+}
