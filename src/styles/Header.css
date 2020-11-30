@@ -1,0 +1,27 @@
+.header {
+  min-height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.left {
+  margin-right: auto;
+  margin-left: 30px;
+}
+
+.header-link {
+  text-decoration: none;
+  color: black;
+}
+
+.right {
+  margin-right: 30px;
+}
+
+.right:hover {
+  text-decoration: underline;
+  text-decoration-color: #f26475;
+}

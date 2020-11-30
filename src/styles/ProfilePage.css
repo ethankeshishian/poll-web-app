@@ -1,0 +1,27 @@
+.profile-user-name {
+  color: #f26475;
+}
+
+.profile-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-subheading-container {
+  display: flex;
+}
+
+.profile-subheading {
+  font-size: 36px;
+}
+
+.profile-details-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+}
+
+.profile-graph-container {
+  background-color: #c4c4c4;
+}

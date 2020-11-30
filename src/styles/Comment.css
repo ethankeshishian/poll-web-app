@@ -1,0 +1,17 @@
+.comment {
+  background-color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  padding: 8px;
+}
+.comment-username {
+  /* font-weight: normal; */
+  font-size: 16px;
+}
+.comment-text {
+  font-size: 16px;
+  text-align: left;
+  overflow-wrap: break-word;
+}
