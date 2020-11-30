@@ -2,12 +2,18 @@ import React from 'react';
 import PollButton from './PollButton';
 import '../styles/Poll.css';
 
-function Poll(props: { question: string; option1: string; option2: string }) {
+function Poll(props: { question: string; options: string[] | null}) {
   return (
     <>
       <h3 className="question">{props.question}</h3>
-      <PollButton question={props.option1} />
-      <PollButton question={props.option2} />
+      {props.options && props.options.map((options, index) => (
+        <PollButton question={options} key={index} />
+      ))}
+      {!props.options && ( <>
+        <PollButton question="Loading..."/>
+        <PollButton question="Loading..."/>
+        </>
+      )}
     </>
   );
 }

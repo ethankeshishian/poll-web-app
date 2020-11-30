@@ -11,8 +11,7 @@ function PollContainer(props : any) {
       {/* CHANGE RESPONSES PROPERTIES */}
       <Poll
         question={props.poll.poll_question || "Loading..."}
-        option1={props.poll.poll_responses ? props.poll.poll_responses[0] : "Loading..."}
-        option2={props.poll.poll_responses ? props.poll.poll_responses[1] : "Loading..."}
+        options={props.poll.poll_responses || null}
       />
     </div>
   );

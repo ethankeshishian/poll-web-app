@@ -35,8 +35,7 @@ function ProfilePage() {
           <h3 className="profile-date-heading">{poll.date}</h3>
           <Poll
             question="Are you a cat or a dog person?"
-            option1="Cat"
-            option2="Dog"
+            options={["Cat", "Dog"]}
           />
           <CommentSection />
         </div>
