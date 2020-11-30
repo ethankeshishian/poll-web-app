@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import { Login, OAuth } from './login';
+import { Login, OAuth, userInfo } from './login';
 import { Register } from './register';
 import { Polls, latest } from './poll';
 import { Comments } from './comments';
 import { Profile } from './profile';
 import thunk from 'redux-thunk';
 
-const composedEnhancer = compose;
+const composedEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   
 const store = createStore(
     combineReducers({
@@ -15,7 +15,7 @@ const store = createStore(
     }), 
     composedEnhancer(applyMiddleware(
         thunk
-    ))
+    )),
 );
 
 const Actions = {
@@ -23,7 +23,8 @@ const Actions = {
         latest
     },
     login: {
-        OAuth
+        OAuth,
+        userInfo
     }
 }
 

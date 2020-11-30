@@ -3,11 +3,11 @@ import CommentSection from './CommentSection';
 import PollContainer from './PollContainer';
 import '../styles/HomePage.css';
 
-function HomePage() {
+function HomePage(props : any) {
   return (
     <div className="home-page">
-      <PollContainer />
-      <CommentSection />
+      <PollContainer poll={props.poll}/>
+      <CommentSection comments={props.poll.comments}/>
     </div>
   );
 }

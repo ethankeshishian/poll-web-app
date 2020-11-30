@@ -5,17 +5,16 @@ import awsconfig from "./aws-exports";
 
 Amplify.configure(awsconfig);
 
-const OAuth = async (dispatch : any) => {
-    await Auth.federatedSignIn()
-    .then(() => {
-        return Auth.currentAuthenticatedUser();
-    })
-    .then((user) => {
-        dispatch({
-            type: 'login',
-            user: user
-        });
-    })
+const OAuth = async () => {
+    await Auth.federatedSignIn();
+}
+
+const userInfo = async (dispatch : any) => {
+    const user = await Auth.currentAuthenticatedUser();
+    dispatch({
+        type: 'login',
+        user: user
+    });
 }
 
 const defaultState = Immutable.fromJS({
@@ -43,5 +42,5 @@ const Login = (state = defaultState, action : any) => {
 }
 
 export {
-    Login, OAuth
+    Login, OAuth, userInfo
 }
