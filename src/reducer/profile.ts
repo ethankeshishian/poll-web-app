@@ -1,0 +1,6 @@
+const Profile = () => {
+}
+
+export { 
+    Profile 
+}
