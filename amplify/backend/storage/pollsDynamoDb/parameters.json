@@ -1,0 +1,5 @@
+{
+  "tableName": "polls",
+  "partitionKeyName": "id",
+  "partitionKeyType": "S"
+}
