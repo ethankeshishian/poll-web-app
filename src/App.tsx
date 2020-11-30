@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HomePage from './components/HomePage';
 import ProfilePage from './components/ProfilePage';
 import AboutPage from './components/AboutPage';
+import MoreInfo from './components/MoreInfo';
 
 function App() {
   return (
@@ -11,10 +12,11 @@ function App() {
       <Header />
       <div className="page-container">
         <HomePage />
+        <MoreInfo />
         {/* <br />
         <ProfilePage />
-        <br />
-        <AboutPage /> */}
+        <AboutPage />
+        <br /> */}
       </div>
     </div>
   );

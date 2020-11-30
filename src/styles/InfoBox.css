@@ -1,0 +1,25 @@
+.info-box {
+    z-index: 100;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    height: 40px;
+    width: 320px;
+    margin: auto;
+    margin-top: -20px;
+    
+    background-color: #FFFFFF;
+    border: 1px solid #969696;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-bottom: 35px;
+    padding: 20px 40px;
+
+    color: #969696;
+    font-size: 16px;
+    text-align: center;
+
+    cursor: pointer;
+}
