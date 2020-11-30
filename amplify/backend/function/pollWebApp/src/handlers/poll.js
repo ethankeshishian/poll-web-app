@@ -93,6 +93,14 @@ const respondToSinglePoll = function (req, res) {
   const responseId = req.params["response"];
   const userId = req.user.Username;
 
+  const responseInt = parseInt(responseId);
+  
+  if (repsonseInt === NaN) {
+    res.statusCode = 400;
+    res.json({ error: "Invalid Response Id" });
+    return;
+  }
+
   if (!userId) {
     res.statusCode = 401;
     res.json({ error: "Unauthenticated User" });
@@ -105,19 +113,18 @@ const respondToSinglePoll = function (req, res) {
       id: pollId,
     },
     UpdateExpression:
-      "ADD results.responses_totals.#responseId :val SET results.responses.#userId = :userResponse",
+      `ADD results.responses_totals[${responseInt}] :val SET results.responses.#userId = :userResponse`,
     ConditionExpression:
       "#type = :type AND attribute_not_exists(timestamp_closed) AND attribute_not_exists(results.responses.#userId)",
     ExpressionAttributeValues: {
       ":val": 1,
       ":userResponse": {
-        response: responseId,
+        response: responseInt,
         timestamp: new Date().toISOString(),
       },
       ":type": "poll",
     },
     ExpressionAttributeNames: {
-      "#responseId": responseId,
       "#userId": userId,
       ":type": "type",
     },
