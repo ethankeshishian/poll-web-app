@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Background from './Background';
 import InfoBox from './InfoBox';
 import '../styles/global.css';
