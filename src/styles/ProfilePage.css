@@ -11,6 +11,7 @@
 
 .profile-subheading-container {
   display: flex;
+  margin-left: 16px; /* Aligning items on left */
 }
 
 .profile-subheading {
@@ -20,8 +21,14 @@
 .profile-details-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  column-gap: 32px;
 }
 
 .profile-graph-container {
   background-color: #c4c4c4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 240px;
+  max-width: 305px;
 }
