@@ -24,3 +24,11 @@
   width: 100%;
   height: 0px;
 }
+
+.comments-text-box {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #969696;
+  height: 100px; /* should be modified when comments are availabe */
+  outline: none;
+}

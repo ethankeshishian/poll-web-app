@@ -2,10 +2,10 @@ import React from 'react';
 import SmallButtonDefault from './SmallButtonDefault';
 import '../styles/ProfilePage.css';
 import '../styles/global.css';
-import Poll from './Poll';
+import PollContainer from './PollContainer';
 import CommentSection from './CommentSection';
 
-function ProfilePage() {
+function ProfilePage(props: any) {
   //replace with name from backend
   const profile: { firstname: string } = { firstname: 'Julia' };
   const getName = (name: string) => {
@@ -31,13 +31,9 @@ function ProfilePage() {
             date’s poll, results, and comments
           </p>
         </div>
-        <div className="profile-history-container">
-          <h3 className="profile-date-heading">{poll.date}</h3>
-          <Poll
-            question="Are you a cat or a dog person?"
-            options={["Cat", "Dog"]}
-          />
-          <CommentSection />
+        <div>
+          <PollContainer poll={props.poll} mainpoll={false} date={poll.date} />
+          <CommentSection comments={props.poll.comments} addcomment={false} />
         </div>
       </div>
     </div>

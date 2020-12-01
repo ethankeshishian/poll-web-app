@@ -9,38 +9,38 @@ import MoreInfo from './components/MoreInfo';
 import { connect } from 'react-redux';
 import { Actions } from './reducer';
 
-function App(props : any) {
+function App(props: any) {
   useEffect(() => {
     props.latest();
     // props.userInfo();
     // if (!props.user) {
     //     props.oauth();
     // }
-  }, [])
+  }, []);
 
   return (
     <div className="App">
       <Header />
       <div className="page-container">
-        <HomePage poll={props.poll}/>
+        <HomePage poll={props.poll} />
         {/* <MoreInfo />
-         <br />
-        <ProfilePage />
-        <AboutPage />
         <br /> */}
+        <ProfilePage poll={props.poll} />
+        {/* <AboutPage /> */}
+        <br />
       </div>
     </div>
   );
 }
 
-const mapStateToProps = (state : any) => {
+const mapStateToProps = (state: any) => {
   return {
     poll: state.Polls.get('poll'),
-    user: state.Login.get('user')
-  }
-}
+    user: state.Login.get('user'),
+  };
+};
 
-const mapDispatchToProps = (dispatch : any) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     latest: () => {
       Actions.poll.latest(dispatch);
@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch : any) => {
     },
     userInfo: () => {
       Actions.login.userInfo(dispatch);
-    }
-  }
-}
+    },
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
