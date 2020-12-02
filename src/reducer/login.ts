@@ -12,15 +12,28 @@ const OAuth = async () => {
 const userInfo = async (dispatch : any) => {
     Auth.currentAuthenticatedUser()
     .then((user) => {
-        dispatch({
-            type: 'login',
-            user: user
-        })
+        if (user) {
+            Auth.userAttributes(user)
+            .then((attributes) => {
+                dispatch({
+                    type: 'login',
+                    user: attributes
+                })
+            })
+        } 
     })
     .catch((e) => {
-        console.log(e)
         dispatch({
             type: 'failed'
+        })
+    })
+}
+
+const logout = async (dispatch : any) => {
+    Auth.signOut()
+    .then(() => {
+        dispatch({
+            type: 'logout'
         })
     })
 }
@@ -38,6 +51,11 @@ const Login = (state = defaultState, action : any) => {
                 // Add other stuff to be updated here
             });
         }
+        case 'logout': {
+            return state.withMutations((val : any) => {
+                val.setIn(['user'], null);
+            });
+        }
         case 'failed': {
             return state.withMutations((val : any) => {
                 val.setIn(['error'], true);
@@ -50,5 +68,5 @@ const Login = (state = defaultState, action : any) => {
 }
 
 export {
-    Login, OAuth, userInfo
+    Login, OAuth, userInfo, logout
 }

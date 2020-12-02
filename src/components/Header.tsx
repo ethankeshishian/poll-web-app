@@ -5,7 +5,7 @@ function Header() {
   return (
     <div className="header">
       <a className="header-link heavy left" href="/">
-        WEB POLL APP
+        POLLIFY
       </a>
       <a className="header-link heavy right" href="#">
         HOME

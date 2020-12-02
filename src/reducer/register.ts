@@ -5,8 +5,8 @@ Amplify.configure(awsconfig);
 
 import Immutable from 'immutable';
 
-const register = (email : any, password : any) => {
-    return async (dispatch : any) => {
+const register = (attribute: any) => {
+    switch (attribute) {
         
     }
 }

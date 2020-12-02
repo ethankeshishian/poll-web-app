@@ -1,6 +1,0 @@
-const Profile = () => {
-}
-
-export { 
-    Profile 
-}

@@ -5,6 +5,9 @@ import '../styles/global.css';
 import PollContainer from './PollContainer';
 import CommentSection from './CommentSection';
 
+import { connect } from 'react-redux';
+import { Actions } from '../reducer';
+
 function ProfilePage(props: any) {
   //replace with name from backend
   const profile: { firstname: string } = { firstname: 'Julia' };
@@ -18,7 +21,7 @@ function ProfilePage(props: any) {
     <div className="profile-page">
       <div className="profile-heading">
         <h1 className="bold">Welcome, {getName(profile.firstname)}!</h1>
-        <SmallButtonDefault text="Log out" />
+        <SmallButtonDefault onClick={props.logout} text="Log out" />
       </div>
       <div className="profile-subheading-container">
         <h2 className="profile-subheading heavy">Your Past Polls</h2>
@@ -40,4 +43,23 @@ function ProfilePage(props: any) {
   );
 }
 
-export default ProfilePage;
+const mapStateToProps = (state: any) => {
+  return {
+    poll: state.Polls.get('poll'),
+    user: state.Login.get('user'),
+    error: state.Login.get('error')
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    respond: (responseId: Number) => {
+      Actions.poll.respond(dispatch, responseId);
+    },
+    logout: () => {
+      Actions.login.logout(dispatch);
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

@@ -3,6 +3,9 @@ import CommentSection from './CommentSection';
 import PollContainer from './PollContainer';
 import '../styles/HomePage.css';
 
+import { connect } from 'react-redux';
+import { Actions } from '../reducer';
+
 function HomePage(props: any) {
   return (
     <div className="home-page">
@@ -12,4 +15,23 @@ function HomePage(props: any) {
   );
 }
 
-export default HomePage;
+const mapStateToProps = (state: any) => {
+  return {
+    poll: state.Polls.get('poll'),
+    user: state.Login.get('user'),
+    error: state.Login.get('error')
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    respond: (responseId: Number) => {
+      Actions.poll.respond(dispatch, responseId);
+    },
+    oauth: () => {
+      Actions.login.OAuth();
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

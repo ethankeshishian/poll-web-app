@@ -14,7 +14,6 @@ function App(props: any) {
     props.latest();
     props.userInfo();
   }, []);
-
   // useEffect(() => {
   //   if (props.error) {
   //       props.oauth();
@@ -25,10 +24,16 @@ function App(props: any) {
     <div className="App">
       <Header />
       <div className="page-container">
-        <HomePage poll={props.poll} respond={props.respond} />
+        {!props.user &&
+        <div>
+          <HomePage />
+        </div>
+        }
         {/* <MoreInfo />
         <br /> */}
-        <ProfilePage poll={props.poll} respond={props.respond} />
+        {props.user &&
+        <ProfilePage />
+        }
         {/* <AboutPage /> */}
         <br />
       </div>
@@ -38,7 +43,6 @@ function App(props: any) {
 
 const mapStateToProps = (state: any) => {
   return {
-    poll: state.Polls.get('poll'),
     user: state.Login.get('user'),
     error: state.Login.get('error')
   };
@@ -49,14 +53,11 @@ const mapDispatchToProps = (dispatch: any) => {
     latest: () => {
       Actions.poll.latest(dispatch);
     },
-    respond: (responseId: Number) => {
-      Actions.poll.respond(dispatch, responseId);
+    userInfo: () => {
+      Actions.login.userInfo(dispatch);
     },
     oauth: () => {
       Actions.login.OAuth();
-    },
-    userInfo: () => {
-      Actions.login.userInfo(dispatch);
     },
   };
 };
