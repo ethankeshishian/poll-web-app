@@ -12,20 +12,23 @@ import { Actions } from './reducer';
 function App(props: any) {
   useEffect(() => {
     props.latest();
-    // props.userInfo();
-    // if (!props.user) {
-    //     props.oauth();
-    // }
+    props.userInfo();
   }, []);
+
+  // useEffect(() => {
+  //   if (props.error) {
+  //       props.oauth();
+  //   }
+  // }, [props.error])
 
   return (
     <div className="App">
       <Header />
       <div className="page-container">
-        <HomePage poll={props.poll} />
+        <HomePage poll={props.poll} respond={props.respond} />
         {/* <MoreInfo />
         <br /> */}
-        <ProfilePage poll={props.poll} />
+        <ProfilePage poll={props.poll} respond={props.respond} />
         {/* <AboutPage /> */}
         <br />
       </div>
@@ -37,6 +40,7 @@ const mapStateToProps = (state: any) => {
   return {
     poll: state.Polls.get('poll'),
     user: state.Login.get('user'),
+    error: state.Login.get('error')
   };
 };
 
@@ -44,6 +48,9 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     latest: () => {
       Actions.poll.latest(dispatch);
+    },
+    respond: (responseId: Number) => {
+      Actions.poll.respond(dispatch, responseId);
     },
     oauth: () => {
       Actions.login.OAuth();

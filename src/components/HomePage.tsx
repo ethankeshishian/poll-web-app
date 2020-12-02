@@ -6,7 +6,7 @@ import '../styles/HomePage.css';
 function HomePage(props: any) {
   return (
     <div className="home-page">
-      <PollContainer poll={props.poll} mainpoll={true} />
+      <PollContainer poll={props.poll} respond={props.respond} mainpoll={true} />
       <CommentSection comments={props.poll.comments} addcomment={true} />
     </div>
   );

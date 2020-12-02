@@ -6,20 +6,28 @@ import awsconfig from "./aws-exports";
 Amplify.configure(awsconfig);
 
 const OAuth = async () => {
-    await Auth.federatedSignIn();
+    await Auth.federatedSignIn({provider: "Google" as any});
 }
 
 const userInfo = async (dispatch : any) => {
-    const user = await Auth.currentAuthenticatedUser();
-    dispatch({
-        type: 'login',
-        user: user
-    });
+    Auth.currentAuthenticatedUser()
+    .then((user) => {
+        dispatch({
+            type: 'login',
+            user: user
+        })
+    })
+    .catch((e) => {
+        console.log(e)
+        dispatch({
+            type: 'failed'
+        })
+    })
 }
 
 const defaultState = Immutable.fromJS({
     user: null,
-    error: ""
+    error: false
 });
 
 const Login = (state = defaultState, action : any) => {
@@ -32,7 +40,7 @@ const Login = (state = defaultState, action : any) => {
         }
         case 'failed': {
             return state.withMutations((val : any) => {
-                val.setIn('error', action.error);
+                val.setIn(['error'], true);
             });
         }
         default: {

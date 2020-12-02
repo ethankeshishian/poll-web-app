@@ -6,6 +6,7 @@ function Poll(props: {
   question: string;
   options: string[] | null;
   mainpoll: boolean;
+  respond: (response: Number) => void;
 }) {
   return (
     <>
@@ -16,7 +17,7 @@ function Poll(props: {
       )}
       {props.options &&
         props.options.map((options, index) => (
-          <PollButton question={options} key={index} />
+          <PollButton question={options} key={index} onClick={() => props.respond(index)} />
         ))}
       {!props.options && (
         <>

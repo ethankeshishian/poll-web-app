@@ -32,7 +32,7 @@ function ProfilePage(props: any) {
           </p>
         </div>
         <div>
-          <PollContainer poll={props.poll} mainpoll={false} date={poll.date} />
+          <PollContainer poll={props.poll} mainpoll={false} date={poll.date} respond={props.respond} />
           <CommentSection comments={props.poll.comments} addcomment={false} />
         </div>
       </div>

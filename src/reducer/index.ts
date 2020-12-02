@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Login, OAuth, userInfo } from './login';
 import { Register } from './register';
-import { Polls, latest } from './poll';
+import { Polls, latest, respond } from './poll';
 import { Comments } from './comments';
 import { Profile } from './profile';
 import thunk from 'redux-thunk';
@@ -20,7 +20,8 @@ const store = createStore(
 
 const Actions = {
     poll: {
-        latest
+        latest,
+        respond
     },
     login: {
         OAuth,
