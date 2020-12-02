@@ -5,7 +5,7 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    height: 40px;
+    height: 20px;
     width: 320px;
     margin: auto;
     margin-top: -20px;
@@ -19,7 +19,7 @@
 
     color: #969696;
     font-size: 16px;
-    text-align: center;
+    text-align: flex-start;
 
     cursor: mouse;
 }
