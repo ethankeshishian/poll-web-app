@@ -13,6 +13,14 @@ const latest = async (dispatch : any) => {
     });
 }
 
+const respond = async (dispatch : any, responseId: Number) => {
+    const response = responseId;
+    dispatch({
+        type: 'respond',
+        response
+    })
+}
+
 const defaultState = Immutable.fromJS({
     poll: {}
 });
@@ -24,6 +32,13 @@ const Polls = (state = defaultState, action : any) => {
                 val.setIn(['poll'], action.poll);
             });
         }
+        case 'respond': {
+            console.log(state);
+            API.post("pollApi", `/polls/${state.getIn(['poll', 'id'])}/respond/${action.response}`, {});
+            return state.withMutations((val : any) => {
+                val.setIn(['response'], action.response)
+            });
+        }
         default: {
             return state;
         }
@@ -31,5 +46,5 @@ const Polls = (state = defaultState, action : any) => {
 }
 
 export { 
-    Polls, latest
+    Polls, latest, respond
 }

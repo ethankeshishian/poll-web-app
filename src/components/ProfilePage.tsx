@@ -36,6 +36,7 @@ function ProfilePage() {
           <Poll
             question="Are you a cat or a dog person?"
             options={["Cat", "Dog"]}
+            respond={(a) => {console.log(a)}}
           />
           <CommentSection />
         </div>

@@ -3,7 +3,7 @@ import '../styles/global.css';
 import '../styles/PollContainer.css';
 import Poll from './Poll';
 
-function PollContainer(props : any) {
+function PollContainer(props : {poll: any; respond: (response: Number) => void}) {
 
   return (
     <div className="main-poll">
@@ -12,6 +12,7 @@ function PollContainer(props : any) {
       <Poll
         question={props.poll.poll_question || "Loading..."}
         options={props.poll.poll_responses || null}
+        respond={props.respond}
       />
     </div>
   );
