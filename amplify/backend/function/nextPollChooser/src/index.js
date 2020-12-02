@@ -106,7 +106,7 @@ const createPoll = async function (suggestion) {
         poll_responses: suggestion.poll_responses,
         timestamp: new Date().toISOString(),
         results: {
-          responses: {},
+          responses: [0, 0],
           responses_totals: {},
         },
         comments: [],

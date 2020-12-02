@@ -94,8 +94,8 @@ const respondToSinglePoll = function (req, res) {
   const userId = req.user.Username;
 
   const responseInt = parseInt(responseId);
-  
-  if (repsonseInt === NaN) {
+
+  if (responseInt === NaN) {
     res.statusCode = 400;
     res.json({ error: "Invalid Response Id" });
     return;
@@ -112,8 +112,7 @@ const respondToSinglePoll = function (req, res) {
     Key: {
       id: pollId,
     },
-    UpdateExpression:
-      `ADD results.responses_totals[${responseInt}] :val SET results.responses.#userId = :userResponse`,
+    UpdateExpression: `ADD results.responses_totals[${responseInt}] :val SET results.responses.#userId = :userResponse`,
     ConditionExpression:
       "#type = :type AND attribute_not_exists(timestamp_closed) AND attribute_not_exists(results.responses.#userId)",
     ExpressionAttributeValues: {
@@ -126,13 +125,14 @@ const respondToSinglePoll = function (req, res) {
     },
     ExpressionAttributeNames: {
       "#userId": userId,
-      ":type": "type",
+      "#type": "type",
     },
     ReturnValues: "ALL_NEW",
   };
 
   dynamodb.update(queryParams, (err, data) => {
     if (err) {
+      console.log(err);
       res.statusCode = 404;
       res.json({ error: "Item not found" });
     } else {
