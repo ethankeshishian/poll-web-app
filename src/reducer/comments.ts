@@ -1,6 +1,0 @@
-const Comments = () => {
-}
-
-export { 
-    Comments 
-}

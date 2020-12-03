@@ -17,7 +17,8 @@ const userInfo = async (dispatch : any) => {
             .then((attributes) => {
                 dispatch({
                     type: 'login',
-                    user: attributes
+                    user: attributes,
+                    key: user
                 })
             })
         } 
@@ -38,17 +39,28 @@ const logout = async (dispatch : any) => {
     })
 }
 
+const attributes = async (attributes : any, user : any) => {
+    await Auth.updateUserAttributes(user, {
+        age: attributes.age,
+        gender: attributes.gender,
+        country: attributes.country,
+        location: attributes.location,
+        attributes: true
+    });
+}
+
 const defaultState = Immutable.fromJS({
+    key: null,
     user: null,
     error: false
 });
 
-const Login = (state = defaultState, action : any) => {
+const Account = (state = defaultState, action : any) => {
     switch (action.type) {
         case 'login': {
             return state.withMutations((val : any) => {
                 val.setIn(['user'], action.user);
-                // Add other stuff to be updated here
+                val.setIn(['key'], action.key);
             });
         }
         case 'logout': {
@@ -68,5 +80,5 @@ const Login = (state = defaultState, action : any) => {
 }
 
 export {
-    Login, OAuth, userInfo, logout
+    Account, OAuth, userInfo, logout, attributes
 }

@@ -1,8 +1,6 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import { Login, OAuth, userInfo, logout } from './login';
-import { Register } from './register';
+import { Account, OAuth, userInfo, logout, attributes } from './account';
 import { Polls, latest, respond } from './poll';
-import { Comments } from './comments';
 import thunk from 'redux-thunk';
 
 const composedEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -10,7 +8,7 @@ const composedEnhancer = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const store = createStore(
     combineReducers({
         Polls, 
-        Login
+        Account
     }), 
     composedEnhancer(applyMiddleware(
         thunk
@@ -22,10 +20,11 @@ const Actions = {
         latest,
         respond
     },
-    login: {
+    account: {
         OAuth,
         userInfo,
-        logout
+        logout,
+        attributes
     }
 }
 

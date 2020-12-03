@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import HomePage from './components/HomePage';
@@ -10,30 +10,37 @@ import { connect } from 'react-redux';
 import { Actions } from './reducer';
 
 function App(props: any) {
+
+  // Check if the attributes for a user are submitted (show popup if not)
+  const [attributesSubmitted, attributes] = useState(true);
+
   useEffect(() => {
     props.latest();
     props.userInfo();
   }, []);
-  // useEffect(() => {
-  //   if (props.error) {
-  //       props.oauth();
-  //   }
-  // }, [props.error])
+
+  useEffect(() => {
+    if (props.user) {
+      if (props.user.length == 4) {
+        attributes(false);
+      }
+    }
+  }, [props.user])
 
   return (
     <div className="App">
       <Header />
       <div className="page-container">
-        {!props.user &&
         <div>
           <HomePage />
         </div>
-        }
-        {/* <MoreInfo />
-        <br /> */}
-        {props.user &&
-        <ProfilePage />
-        }
+        {/* {!attributesSubmitted &&
+        <div>
+          <MoreInfo />
+          <br />
+        </div>
+        } */}
+         {/* <ProfilePage />  */}
         {/* <AboutPage /> */}
         <br />
       </div>
@@ -43,8 +50,8 @@ function App(props: any) {
 
 const mapStateToProps = (state: any) => {
   return {
-    user: state.Login.get('user'),
-    error: state.Login.get('error')
+    user: state.Account.get('user'),
+    error: state.Account.get('error')
   };
 };
 
@@ -54,10 +61,10 @@ const mapDispatchToProps = (dispatch: any) => {
       Actions.poll.latest(dispatch);
     },
     userInfo: () => {
-      Actions.login.userInfo(dispatch);
+      Actions.account.userInfo(dispatch);
     },
     oauth: () => {
-      Actions.login.OAuth();
+      Actions.account.OAuth();
     },
   };
 };

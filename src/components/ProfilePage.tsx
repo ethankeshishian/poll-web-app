@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SmallButtonDefault from './SmallButtonDefault';
 import '../styles/ProfilePage.css';
 import '../styles/global.css';
@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Actions } from '../reducer';
 
 function ProfilePage(props: any) {
+
   //replace with name from backend
   const profile: { firstname: string } = { firstname: 'Julia' };
   const getName = (name: string) => {
@@ -46,8 +47,8 @@ function ProfilePage(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     poll: state.Polls.get('poll'),
-    user: state.Login.get('user'),
-    error: state.Login.get('error')
+    user: state.Account.get('user'),
+    error: state.Account.get('error')
   };
 };
 
@@ -57,7 +58,7 @@ const mapDispatchToProps = (dispatch: any) => {
       Actions.poll.respond(dispatch, responseId);
     },
     logout: () => {
-      Actions.login.logout(dispatch);
+      Actions.account.logout(dispatch);
     }
   };
 };

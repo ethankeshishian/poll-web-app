@@ -9,8 +9,8 @@ import { Actions } from '../reducer';
 function HomePage(props: any) {
   return (
     <div className="home-page">
-      <PollContainer poll={props.poll} respond={props.respond} mainpoll={true} />
-      <CommentSection comments={props.poll.comments} addcomment={true} />
+      <PollContainer poll={props.poll} respond={props.user ? props.respond : props.oauth} mainpoll={true} />
+      <CommentSection comments={props.poll.comments} addcomment={props.user} />
     </div>
   );
 }
@@ -18,8 +18,8 @@ function HomePage(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     poll: state.Polls.get('poll'),
-    user: state.Login.get('user'),
-    error: state.Login.get('error')
+    user: state.Account.get('user'),
+    error: state.Account.get('error')
   };
 };
 
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch: any) => {
       Actions.poll.respond(dispatch, responseId);
     },
     oauth: () => {
-      Actions.login.OAuth();
+      Actions.account.OAuth();
     },
   };
 };
