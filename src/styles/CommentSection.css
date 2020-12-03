@@ -30,4 +30,23 @@
   border: 1px solid #969696;
   height: 100px; /* should be modified when comments are availabe */
   outline: none;
+  padding: 10px 10px;
+  font-size: 16px;
+  letter-spacing: -0.015em;
+  color: #4D4D4D;
+}
+
+.comments-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  width: 80px;
+  height: 24px;
+  background: #F26475;
+  border-radius: 20px;
+  color: #FFFFFF;
+  border: none;
+  font-size: 15px;
+  letter-spacing: -0.015em;
 }

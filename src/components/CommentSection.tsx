@@ -16,6 +16,7 @@ function CommentSection(props: { comments: any; addcomment: boolean }) {
                 placeholder="Have something to say? Write your comment here!"
               />
             </label>
+            <button className="comments-submit">Submit</button>
           </form>
         )}
         {props.comments &&
