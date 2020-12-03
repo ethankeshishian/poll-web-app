@@ -26,7 +26,6 @@ function App(props: any) {
     }
   }, [props.comment])
 
-
   useEffect(() => {
     if (props.user) {
       if (props.user.length === 4) {

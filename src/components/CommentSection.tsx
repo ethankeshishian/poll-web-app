@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Comment from './Comment';
 import '../styles/CommentSection.css';
 
-function CommentSection(props: { respond : any, comments: any; addcomment: boolean }) {
+function CommentSection(props: { respond : any, pollId? : any, comments: any; addcomment: boolean }) {
 
   const [comment, setComment] = useState("");
 
@@ -23,7 +23,7 @@ function CommentSection(props: { respond : any, comments: any; addcomment: boole
             </label>
             <button onClick={() => {
               if (comment) {
-                props.respond(comment);
+                props.respond(comment, props.pollId);
                 setComment("");
               }
             }} className="comments-submit">Submit</button>
