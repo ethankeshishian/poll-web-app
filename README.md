@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+# Viewing the app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The app is hosted at [pollify.xyz](http://localhost:3000). To download a copy of the source code and run the app locally, follow the instructions in the "Running app locally" section.
 
-## Available Scripts
+# Running app locally
 
-In the project directory, you can run:
+First, make sure to clone the repository to your system. Make sure you have git installed, then navigate to the directory you want to clone the repository. Then run the command:
 
-### `yarn start`
+`git clone https://github.com/ethankeshishian/poll-web-app.git`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This will create a new directory named "poll-web-app" that will contain the project's source code.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installing Dependencies
 
-### `yarn test`
+To install dependencies, make sure you have npm installed, then navigate to the directory with a terminal using the `cd <your directory>` command. Then, run the command `npm install` to install all dependencies.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running the app
 
-### `yarn build`
+To see the app in your web browser, run `npm start` or `yarn start` and navigate to [http://localhost:3000](http://localhost:3000) in your browser. The page will reload if you make edits.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Publishing backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You should now be able to see the app. The app is already connected to our backend. To publish the commands in the `/amplify` folder to the cloud and build a new backend, continue reading.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## To create a remote environment
 
-### `yarn eject`
+Run the `amplify env add` command and answer the prompt as follows:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+? Do you want to use an existing environment?
+No
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+? Enter a name for the environment [dev|test|prod]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+? Do you want to use an AWS profile? Yes
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+? Please choose the profile you want to use (default)
 
-## Learn More
+Enter your Google Web Client ID for your OAuth flow: XXX
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Enter your Google Web Client Secret for your OAuth flow: XXX
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## To create resources on AWS
+
+Run the `amplify push` command and answer the prompt as follows:
+
+```
+? Are you sure you want to continue? Yes
+```
