@@ -36,8 +36,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    respond: (responseId: Number) => {
-      Actions.poll.respond(dispatch, responseId);
+    respond: (pollId: String, responseId: Number) => {
+      Actions.poll.respond(dispatch, pollId, responseId);
     },
     oauth: () => {
       Actions.account.OAuth();
