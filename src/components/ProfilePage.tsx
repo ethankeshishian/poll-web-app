@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import SmallButtonDefault from './SmallButtonDefault';
 import '../styles/ProfilePage.css';
 import '../styles/global.css';
@@ -9,14 +11,24 @@ import { connect } from 'react-redux';
 import { Actions } from '../reducer';
 
 function ProfilePage(props: any) {
-
   //replace with name from backend
   const profile: { firstname: string } = { firstname: 'Julia' };
   const getName = (name: string) => {
     return <span className="profile-user-name bold">{name}</span>;
   };
 
-  const poll: { date: string } = { date: 'November 23, 2020' };
+  var options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const [calendarDate, setCalendarDate]: any = useState(
+    new Date().toLocaleDateString('en-US', options)
+  );
+
+  const handleCalendarClick = (e: any) => {
+    setCalendarDate(e.toLocaleDateString('en-US', options));
+  };
 
   return (
     <div className="profile-page">
@@ -29,15 +41,24 @@ function ProfilePage(props: any) {
       </div>
       <div className="profile-details-container">
         <div className="profile-graph-container">
-          <p>
-            calendar displaying currrent month with answered poll dates
-            highlighted/colored in, user can click on specific dates to see that
-            date’s poll, results, and comments
-          </p>
+          <Calendar
+            onChange={(e) => handleCalendarClick(e)}
+            className=".profile-graph"
+            maxDate={new Date()}
+          />
         </div>
         <div>
-          <PollContainer poll={props.poll} mainpoll={false} date={poll.date} respond={props.respond} />
-          <CommentSection respond={null} comments={props.poll.comments} addcomment={false} />
+          <PollContainer
+            poll={props.poll}
+            mainpoll={false}
+            date={calendarDate}
+            respond={props.respond}
+          />
+          <CommentSection
+            respond={null}
+            comments={props.poll.comments}
+            addcomment={false}
+          />
         </div>
       </div>
     </div>
@@ -48,7 +69,7 @@ const mapStateToProps = (state: any) => {
   return {
     poll: state.Polls.get('poll'),
     user: state.Account.get('user'),
-    error: state.Account.get('error')
+    error: state.Account.get('error'),
   };
 };
 
@@ -59,7 +80,7 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     logout: () => {
       Actions.account.logout(dispatch);
-    }
+    },
   };
 };
 
