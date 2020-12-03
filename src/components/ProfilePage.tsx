@@ -12,7 +12,6 @@ import { Actions } from '../reducer';
 
 function ProfilePage(props: any) {
   //replace with name from backend
-  const profile: { firstname: string } = { firstname: 'Julia' };
   const getName = (name: string) => {
     return <span className="profile-user-name bold">{name}</span>;
   };
@@ -33,7 +32,9 @@ function ProfilePage(props: any) {
   return (
     <div className="profile-page">
       <div className="profile-heading">
-        <h1 className="bold">Welcome, {getName(profile.firstname)}!</h1>
+        <h1 className="bold">
+          Welcome, {getName(props.user ? props.user[4].Value : 'Loading...')}!
+        </h1>
         <SmallButtonDefault onClick={props.logout} text="Log out" />
       </div>
       <div className="profile-subheading-container">
