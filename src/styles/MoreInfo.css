@@ -49,6 +49,19 @@
     cursor: pointer;
 }
 
+.close-window {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4D4D4D;
+    font-size: 18px;
+    background: #FFFFFF;
+    border: none;
+    margin-left: auto;
+    margin-bottom: -45px;
+    padding: 10px 10px;
+    cursor: pointer;
+}
 /* Use later for implementing Age/Gender dropdowns */
 /* Positioning the dropdown box */
 .dropdown {
