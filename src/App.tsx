@@ -22,8 +22,10 @@ function App(props: any) {
 
   useEffect(() => {
     if (props.user) {
-      if (props.user.length == 4) {
+      if (props.user.length === 4) {
         attributes(false);
+      } else {
+        attributes(true);
       }
     }
   }, [props.user])
@@ -44,17 +46,13 @@ function App(props: any) {
             </Switch>
           </div>
         </Router>
-        {/* <div>
-          <HomePage />
-        </div>
-        {/* {!attributesSubmitted &&
+
+        {!attributesSubmitted &&
         <div>
           <MoreInfo />
           <br />
         </div>
-        } 
-          <ProfilePage /> 
-        <AboutPage /> */}
+        }
         
     </div>
   );

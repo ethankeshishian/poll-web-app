@@ -32,10 +32,10 @@ const respond = async (dispatch: any, pollId: String, responseId: Number) => {
 };
 
 const comment = async (dispatch: any, comment: string) => {
-  dispatch({
-    type: "comment",
-    comment: comment,
-  });
+    dispatch({
+        type: "comment",
+        comment: comment,
+    });
 };
 
 const defaultState = Immutable.fromJS({
@@ -57,11 +57,11 @@ const Polls = (state = defaultState, action: any) => {
       });
     }
     case "comment": {
-      API.post("pollApi", `/polls/${state.getIn(["poll", "id"])}comment`, {
-        body: {
-          comment: action.comment,
-        },
-      });
+        API.post("pollApi", `/polls/${state.getIn(["poll", "id"])}comment`, {
+            body: {
+                comment: action.comment,
+            },
+        });
       return state.withMutations((val: any) => {
         val.setIn(["comment"], action.comment);
       });
@@ -72,4 +72,4 @@ const Polls = (state = defaultState, action: any) => {
   }
 };
 
-export { Polls, latest, respond };
+export { Polls, latest, respond, comment };

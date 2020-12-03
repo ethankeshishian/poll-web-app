@@ -39,14 +39,14 @@ const logout = async (dispatch : any) => {
     })
 }
 
-const attributes = async (attributes : any, user : any) => {
-    await Auth.updateUserAttributes(user, {
-        age: attributes.age,
+const attributes = async (dispatch : any, attributes : any, user : any) => {
+    Auth.updateUserAttributes(user, {
+        name: attributes.name,
+        "custom:age": attributes.age,
         gender: attributes.gender,
-        country: attributes.country,
-        location: attributes.location,
-        attributes: true
-    });
+        "custom:location": attributes.location
+    })
+    .then(() => userInfo(dispatch));
 }
 
 const defaultState = Immutable.fromJS({

@@ -5,7 +5,6 @@ import "../styles/HomePage.css";
 
 import { connect } from "react-redux";
 import { Actions } from "../reducer";
-import { stat } from "fs";
 
 function HomePage(props: any) {
   return (
@@ -20,7 +19,7 @@ function HomePage(props: any) {
             : null
         }
       />
-      <CommentSection comments={props.poll.comments} addcomment={props.user} />
+      <CommentSection respond={props.comment} comments={props.poll.comments} addcomment={props.user} />
     </div>
   );
 }
@@ -42,6 +41,9 @@ const mapDispatchToProps = (dispatch: any) => {
     oauth: () => {
       Actions.account.OAuth();
     },
+    comment: (comment : string) => {
+      Actions.poll.comment(dispatch, comment);
+    }
   };
 };
 

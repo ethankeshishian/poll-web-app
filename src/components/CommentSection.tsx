@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Comment from './Comment';
 import '../styles/CommentSection.css';
 
-function CommentSection(props: { comments: any; addcomment: boolean }) {
+function CommentSection(props: { respond : any, comments: any; addcomment: boolean }) {
+
+  const [comment, setComment] = useState("");
+
   return (
     <div className="comments-section">
       <h2 className="comments-section-heading">Comments</h2>
@@ -14,9 +17,14 @@ function CommentSection(props: { comments: any; addcomment: boolean }) {
                 className="comments-text-box"
                 name="comment"
                 placeholder="Have something to say? Write your comment here!"
+                onChange={(event : any) => setComment(event.target.value)}
               />
             </label>
-            <button className="comments-submit">Submit</button>
+            <button onClick={() => {
+              if (comment) {
+                props.respond(comment);
+              }
+            }} className="comments-submit">Submit</button>
           </form>
         )}
         {props.comments &&

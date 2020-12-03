@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 import { Actions } from '../reducer';
 
 function MoreInfo(props : any) {
-
+  
+  const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [gender, setGender] = useState("");
-  const [country, setCountry] = useState("");
   const [location, setLocation] = useState("");
 
   return (
@@ -20,19 +20,19 @@ function MoreInfo(props : any) {
     <div className="popup-window">
       <button className="close-window">X</button>
       <h3 className="header">Additional Info</h3>
+      <InfoBox onChange={(event : any) => setName(event.target.value)} subject="Name"/>
       <InfoBox onChange={(event : any) => setAge(event.target.value)} subject="Age"/>
       <InfoBox onChange={(event : any) => setGender(event.target.value)} subject="Gender"/>
-      <InfoBox onChange={(event : any) => setCountry(event.target.value)} subject="Country of Residence"/>
       <InfoBox onChange={(event : any) => setLocation(event.target.value)} subject="City"/>
       <button 
       onClick={() => {
-        if (age != 0 && gender && country && location) {
+        if (age != 0 && name && gender && location) {
           props.attributes({
+            name: name,
             age: age,
             gender: gender,
-            country: country,
             location: location,
-          }, props.key);
+          }, props.session);
         }
       }}
       className="submission-button">Complete account</button>
@@ -43,14 +43,17 @@ function MoreInfo(props : any) {
 
 const mapStateToProps = (state: any) => {
   return {
-    key: state.Account.get('key')
+    session: state.Account.get('key')
   };
 };
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch : any) => {
   return {
     attributes: (attributes : any, user : any) => {
-      Actions.account.attributes(attributes, user);
+      Actions.account.attributes(dispatch, attributes, user);
+    },
+    userInfo: () => {
+      Actions.account.userInfo(dispatch);
     }
   };
 };
