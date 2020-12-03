@@ -104,7 +104,7 @@ const createPoll = async function (suggestion) {
         type: "poll",
         poll_question: suggestion.poll_question,
         poll_responses: suggestion.poll_responses,
-        timestamp: new Date().toISOString(),
+        timestamp: Date.now().toString(),
         results: {
           responses: [0, 0],
           responses_totals: {},
@@ -160,7 +160,7 @@ const closePreviousPoll = async function (pollId) {
       },
       UpdateExpression: "SET #timeClosed = :timeClosed",
       ExpressionAttributeValues: {
-        ":timeClosed": new Date().toISOString(),
+        ":timeClosed": Date.now().toString(),
       },
       ExpressionAttributeNames: {
         "#timeClosed": "timestamp_closed",
