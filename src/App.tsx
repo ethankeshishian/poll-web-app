@@ -8,6 +8,7 @@ import MoreInfo from './components/MoreInfo';
 
 import { connect } from 'react-redux';
 import { Actions } from './reducer';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App(props: any) {
 
@@ -29,9 +30,17 @@ function App(props: any) {
 
   return (
     <div className="App">
-      <Header />
-      <div className="page-container">
-        <div>
+        <Router>
+          <Header />
+          <div className="page-container">
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/profile" component={ProfilePage} />
+              <Route exact path="/about" component={AboutPage} />
+            </Switch>
+          </div>
+        </Router>
+        {/* <div>
           <HomePage />
         </div>
         {/* {!attributesSubmitted &&
@@ -39,11 +48,10 @@ function App(props: any) {
           <MoreInfo />
           <br />
         </div>
-        } */}
-         {/* <ProfilePage />  */}
-        {/* <AboutPage /> */}
-        <br />
-      </div>
+        } 
+          <ProfilePage /> 
+        <AboutPage /> */}
+        
     </div>
   );
 }
