@@ -19,7 +19,7 @@ function HomePage(props: any) {
             : null
         }
       />
-      <CommentSection respond={props.comment} comments={props.poll.comments} addcomment={props.user} />
+      <CommentSection respond={props.comment} pollId={props.poll.id} comments={props.poll.comments} addcomment={props.user} />
     </div>
   );
 }
@@ -41,8 +41,8 @@ const mapDispatchToProps = (dispatch: any) => {
     oauth: () => {
       Actions.account.OAuth();
     },
-    comment: (comment : string) => {
-      Actions.poll.comment(dispatch, comment);
+    comment: (comment : string, pollId: string) => {
+      Actions.poll.comment(dispatch, comment, pollId);
     }
   };
 };

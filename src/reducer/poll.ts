@@ -39,7 +39,14 @@ const respond = async (dispatch: any, pollId: String, responseId: Number) => {
   });
 };
 
-const comment = async (dispatch: any, comment: string) => {
+const comment = async (dispatch: any, comment: string, pollId: String) => {
+
+    await API.post("pollApi", `/polls/${pollId}/comment`, {
+        body: {
+            comment: comment,
+        },
+    });
+
     dispatch({
         type: "comment",
         comment: comment,
@@ -72,11 +79,6 @@ const Polls = (state = defaultState, action: any) => {
       });
     }
     case "comment": {
-        API.post("pollApi", `/polls/${state.getIn(["poll", "id"])}/comment`, {
-            body: {
-                comment: action.comment,
-            },
-        });
         return state.withMutations((val: any) => {
             val.setIn(["comment"], action.comment);
         });
