@@ -49,6 +49,7 @@ const Polls = (state = defaultState, action: any) => {
     case "latest": {
       return state.withMutations((val: any) => {
         val.setIn(["poll"], action.poll);
+        val.setIn(["comment"], null);
       });
     }
     case "respond": {
@@ -57,7 +58,7 @@ const Polls = (state = defaultState, action: any) => {
       });
     }
     case "comment": {
-        API.post("pollApi", `/polls/${state.getIn(["poll", "id"])}comment`, {
+        API.post("pollApi", `/polls/${state.getIn(["poll", "id"])}/comment`, {
             body: {
                 comment: action.comment,
             },

@@ -21,6 +21,13 @@ function App(props: any) {
   }, []);
 
   useEffect(() => {
+    if (props.comment) {
+      props.latest(); 
+    }
+  }, [props.comment])
+
+
+  useEffect(() => {
     if (props.user) {
       if (props.user.length === 4) {
         attributes(false);
@@ -61,7 +68,8 @@ function App(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     user: state.Account.get('user'),
-    error: state.Account.get('error')
+    error: state.Account.get('error'),
+    comment: state.Polls.get('comment')
   };
 };
 

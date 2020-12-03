@@ -5,7 +5,7 @@ import '../styles/global.css';
 function Comment(props : any) {
   return (
     <div className="comment">
-      <h3 className="bold comment-username">{ props.username || "Loading..." }</h3>
+      {/* <h3 className="bold comment-username">{ props.username || "Loading..." }</h3> */}
       <p className="comment-text">
         {props.comment || "Loading..."}
       </p>

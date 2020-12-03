@@ -11,30 +11,31 @@ function CommentSection(props: { respond : any, comments: any; addcomment: boole
       <h2 className="comments-section-heading">Comments</h2>
       <div className="comments-container">
         {props.addcomment && (
-          <form>
+          <div>
             <label>
               <textarea
                 className="comments-text-box"
                 name="comment"
                 placeholder="Have something to say? Write your comment here!"
+                value={comment}
                 onChange={(event : any) => setComment(event.target.value)}
               />
             </label>
             <button onClick={() => {
               if (comment) {
                 props.respond(comment);
+                setComment("");
               }
             }} className="comments-submit">Submit</button>
-          </form>
+          </div>
         )}
         {props.comments &&
           props.comments.map((comment: any, index: number) => (
-            <div>
+            <div key={index}>
               <canvas className="comment-separator" />
               <Comment
-                key={index}
-                username={comment.username}
-                comment={comment.comment}
+                // username={comment.username}
+                comment={comment.commentText}
               />
             </div>
           ))}
