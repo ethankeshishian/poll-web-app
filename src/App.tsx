@@ -35,7 +35,11 @@ function App(props: any) {
           <div className="page-container">
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/profile" component={ProfilePage} />
+              <Route exact path="/profile" render={() => (
+                props.user ? (
+                  <ProfilePage />
+                ) : props.oauth()
+              )} />
               <Route exact path="/about" component={AboutPage} />
             </Switch>
           </div>
@@ -73,6 +77,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     oauth: () => {
       Actions.account.OAuth();
+    },
+    logout: () => {
+      Actions.account.logout(dispatch);
     },
   };
 };
