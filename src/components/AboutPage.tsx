@@ -7,13 +7,13 @@ function AboutPage() {
     <div className="about-page">
       <h2 className="heavy">About Us</h2>
       <p className="about-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        We're Pollify &mdash; a social polling application that allows users to
+        vote on a new poll every day. Each poll varies in topic, and provides an
+        opportunity for users to communicate with the rest of the community. But
+        Pollify isn’t just about voting &mdash; we provide demographics to see
+        how different people vote based on who they are. Pollify was built by
+        five UCLA students who wanted to provide a fun and engaging platform for
+        people from all walks of life to share their opinions.
       </p>
       <form>
         <label>

@@ -1,0 +1,9 @@
+.background {
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: 106.5%;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4); 
+}

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SmallButtonDefault from './SmallButtonDefault';
 import '../styles/ProfilePage.css';
 import '../styles/global.css';
-import Poll from './Poll';
+import PollContainer from './PollContainer';
 import CommentSection from './CommentSection';
 
-function ProfilePage() {
+import { connect } from 'react-redux';
+import { Actions } from '../reducer';
+
+function ProfilePage(props: any) {
+
   //replace with name from backend
   const profile: { firstname: string } = { firstname: 'Julia' };
   const getName = (name: string) => {
@@ -18,7 +22,7 @@ function ProfilePage() {
     <div className="profile-page">
       <div className="profile-heading">
         <h1 className="bold">Welcome, {getName(profile.firstname)}!</h1>
-        <SmallButtonDefault text="Log out" />
+        <SmallButtonDefault onClick={props.logout} text="Log out" />
       </div>
       <div className="profile-subheading-container">
         <h2 className="profile-subheading heavy">Your Past Polls</h2>
@@ -31,18 +35,32 @@ function ProfilePage() {
             date’s poll, results, and comments
           </p>
         </div>
-        <div className="profile-history-container">
-          <h3 className="profile-date-heading">{poll.date}</h3>
-          <Poll
-            question="Are you a cat or a dog person?"
-            option1="Cat"
-            option2="Dog"
-          />
-          <CommentSection />
+        <div>
+          <PollContainer poll={props.poll} mainpoll={false} date={poll.date} respond={props.respond} />
+          <CommentSection respond={null} comments={props.poll.comments} addcomment={false} />
         </div>
       </div>
     </div>
   );
 }
 
-export default ProfilePage;
+const mapStateToProps = (state: any) => {
+  return {
+    poll: state.Polls.get('poll'),
+    user: state.Account.get('user'),
+    error: state.Account.get('error')
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    respond: (pollId: String, responseId: Number) => {
+      Actions.poll.respond(dispatch, pollId, responseId);
+    },
+    logout: () => {
+      Actions.account.logout(dispatch);
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
