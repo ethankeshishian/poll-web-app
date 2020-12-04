@@ -46,6 +46,7 @@ function ProfilePage(props: any) {
             onChange={(e) => handleCalendarClick(e)}
             className=".profile-graph"
             maxDate={new Date()}
+            calendarType="US" // Week starts on Sunday instead of Monday
           />
         </div>
         <div>
