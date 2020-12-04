@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 import Amplify, { Auth } from "aws-amplify";
-import awsconfig from "../aws-exports";
+import awsconfig from "../awsconfig";
 
 Amplify.configure(awsconfig);
 
