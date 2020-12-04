@@ -57,7 +57,7 @@ const voteOnSuggestedPoll = function (req, res) {
     ExpressionAttributeValues: {
       ":val": 1,
       ":userResponse": {
-        timestamp: new Date().toISOString(),
+        timestamp: Date.now().toString(),
       },
       ":type": "poll_suggestion",
     },
@@ -111,7 +111,7 @@ const createNewSuggestedPoll = function (req, res) {
       type: "poll_suggestion",
       poll_question: pollQuestion,
       poll_responses: pollResponses,
-      timestamp: new Date().toISOString(),
+      timestamp: Date.now().toString(),
       results: {
         suggestions: {},
         suggestions_total: 0,

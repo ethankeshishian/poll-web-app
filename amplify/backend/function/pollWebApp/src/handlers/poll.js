@@ -119,7 +119,7 @@ const respondToSinglePoll = function (req, res) {
       ":val": 1,
       ":userResponse": {
         response: responseInt,
-        timestamp: new Date().toISOString(),
+        timestamp: Date.now().toString(),
       },
       ":type": "poll",
     },
@@ -176,7 +176,7 @@ const commentOnSinglePoll = function (req, res) {
         {
           commentText,
           user_id: userId,
-          timestamp: new Date().toISOString(),
+          timestamp: Date.now().toString(),
         },
       ],
       ":empty_list": [],

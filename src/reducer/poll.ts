@@ -1,7 +1,7 @@
 import Immutable from "immutable";
 
 import Amplify, { API } from "aws-amplify";
-import awsconfig from "./aws-exports";
+import awsconfig from "../aws-exports";
 
 Amplify.configure(awsconfig);
 
@@ -12,6 +12,14 @@ const latest = async (dispatch: any) => {
     poll: poll[0],
   });
 };
+
+const all = async (dispatch: any) => {
+    const polls = await API.get("pollApi", "/polls", {});;
+    dispatch({
+        type: "all",
+        poll: polls,
+    });
+}
 
 const respond = async (dispatch: any, pollId: String, responseId: Number) => {
   dispatch({
@@ -31,7 +39,14 @@ const respond = async (dispatch: any, pollId: String, responseId: Number) => {
   });
 };
 
-const comment = async (dispatch: any, comment: string) => {
+const comment = async (dispatch: any, comment: string, pollId: String) => {
+
+    await API.post("pollApi", `/polls/${pollId}/comment`, {
+        body: {
+            comment: comment,
+        },
+    });
+
     dispatch({
         type: "comment",
         comment: comment,
@@ -40,6 +55,7 @@ const comment = async (dispatch: any, comment: string) => {
 
 const defaultState = Immutable.fromJS({
   poll: {},
+  all: null,
   response: null,
   comment: null,
 });
@@ -52,20 +68,20 @@ const Polls = (state = defaultState, action: any) => {
         val.setIn(["comment"], null);
       });
     }
+    case "all": {
+        return state.withMutations((val: any) => {
+          val.setIn(["all"], action.all);
+        });
+      }
     case "respond": {
       return state.withMutations((val: any) => {
         val.setIn(["response"], action.responseId);
       });
     }
     case "comment": {
-        API.post("pollApi", `/polls/${state.getIn(["poll", "id"])}/comment`, {
-            body: {
-                comment: action.comment,
-            },
+        return state.withMutations((val: any) => {
+            val.setIn(["comment"], action.comment);
         });
-      return state.withMutations((val: any) => {
-        val.setIn(["comment"], action.comment);
-      });
     }
     default: {
       return state;
@@ -73,4 +89,4 @@ const Polls = (state = defaultState, action: any) => {
   }
 };
 
-export { Polls, latest, respond, comment };
+export { Polls, latest, respond, comment, all };
