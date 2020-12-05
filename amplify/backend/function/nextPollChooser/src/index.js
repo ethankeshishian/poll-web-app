@@ -43,7 +43,8 @@ exports.handler = async (event) => {
   const latestPoll = await getLatestPoll();
 
   // close the previous poll
-  await closePreviousPoll(latestPoll[0].id);
+  if (latestPoll[0])
+    await closePreviousPoll(latestPoll[0].id);
 
   // put winner into database
   await createPoll(winningSuggestion);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/global.css";
 import "../styles/PollContainer.css";
 import Poll from "./Poll";
@@ -38,6 +38,10 @@ function PollContainer(props: any) {
           props.respond(props.poll.id, responseId);
         }}
       />
+      <div className="poll-footer">
+        <h3 className="footer-title" onClick={() => {}}>VIEW DETAILED RESULTS</h3>
+        <h3 className="footer-title" onClick={() => props.showSuggestions()}>VOTE FOR TOMORROW'S POLL</h3>
+      </div>
     </div>
   );
 }

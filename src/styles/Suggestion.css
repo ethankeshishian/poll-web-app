@@ -1,0 +1,16 @@
+.responses-box {
+    font-size:20px;
+    color: black;
+
+    display: flex;
+    width: 100%;
+    justify-content: stretch;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.response-text {
+    margin-left: 10px;
+    flex-grow: 1;
+    text-align: left;
+}

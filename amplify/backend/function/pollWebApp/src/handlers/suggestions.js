@@ -112,6 +112,7 @@ const createNewSuggestedPoll = function (req, res) {
       poll_question: pollQuestion,
       poll_responses: pollResponses,
       timestamp: Date.now().toString(),
+      suggested_by: userId,
       results: {
         suggestions: {},
         suggestions_total: 0,

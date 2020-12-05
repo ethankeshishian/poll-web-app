@@ -11,7 +11,6 @@ const allSuggestions = () => async (dispatch: any, getState: any) => {
     type: "all",
     suggestions,
   });
-  console.log(getState());
   const ourUsername = getState().Account.get("key")?.username;
   for (const suggestion of suggestions) {
     if (suggestion.suggested_by === ourUsername) {
@@ -36,23 +35,58 @@ const vote = async (dispatch: any, suggestionId: string) => {
   });
 };
 
-const create = async (
-  dispatch: any,
-  poll: { poll_question: string; poll_responses: string[] }
-) => {
+const create = () => async (dispatch: any, getState: any) => {
+  const state = getState().Suggestions;
   const createdPoll = await API.post("pollApi", "/polls/suggested", {
     body: {
-      poll_question: poll.poll_question,
-      poll_responses: poll.poll_responses,
+      poll_question: state.getIn(["currentCustomPollSuggestion", "poll_question"]),
+      poll_responses: [
+        state.getIn(["currentCustomPollSuggestion", "poll_responses_a"]),
+        state.getIn(["currentCustomPollSuggestion", "poll_responses_b"])
+      ],
     },
   });
 
   dispatch(allSuggestions());
 };
 
+const showSuggestions = (dispatch: any, showSuggestion: boolean) => {
+  dispatch({
+    type: "show",
+    showSuggestion,
+  });
+}
+
+const updateCustomPollQuestion = (dispatch: any, question: string) => {
+  dispatch({
+    type: "update_question",
+    question,
+  });
+}
+
+const updateCustomPollResponseA = (dispatch: any, response: string) => {
+  dispatch({
+    type: "update_response_a",
+    response,
+  });
+}
+
+const updateCustomPollResponseB = (dispatch: any, response: string) => {
+  dispatch({
+    type: "update_response_b",
+    response,
+  });
+}
+
 const defaultState = Immutable.fromJS({
   allSuggestions: [],
   votedSuggestion: null,
+  showSuggestions: false,
+  currentCustomPollSuggestion: {
+    poll_question: "",
+    poll_responses_a: "",
+    poll_responses_b: ""
+  }
 });
 
 const Suggestions = (state = defaultState, action: any) => {
@@ -67,8 +101,25 @@ const Suggestions = (state = defaultState, action: any) => {
         val.setIn(["votedSuggestion"], action.suggestionId);
       });
     }
-    case "create": {
-      return state;
+    case "show": {
+      return state.withMutations((val: any) => {
+        val.setIn(["showSuggestions"], action.showSuggestion);
+      });
+    }
+    case "update_question": {
+      return state.withMutations((val: any) => {
+        val.setIn(["currentCustomPollSuggestion", "poll_question"], action.question);
+      });
+    }
+    case "update_response_a": {
+      return state.withMutations((val: any) => {
+        val.setIn(["currentCustomPollSuggestion", "poll_responses_a"], action.response);
+      });
+    }
+    case "update_response_b": {
+      return state.withMutations((val: any) => {
+        val.setIn(["currentCustomPollSuggestion", "poll_responses_b"], action.response);
+      });
     }
     default: {
       return state;
@@ -76,4 +127,4 @@ const Suggestions = (state = defaultState, action: any) => {
   }
 };
 
-export { Suggestions, allSuggestions, create, vote };
+export { Suggestions, allSuggestions, create, vote, showSuggestions, updateCustomPollQuestion, updateCustomPollResponseA, updateCustomPollResponseB };

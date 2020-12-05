@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import ProfilePage from './components/ProfilePage';
 import AboutPage from './components/AboutPage';
 import MoreInfo from './components/MoreInfo';
+import SuggestionsBox from './components/SuggestionsBox';
 
 import { connect } from 'react-redux';
 import { Actions } from './reducer';
@@ -18,7 +19,7 @@ function App(props: any) {
   useEffect(() => {
     props.latest();
     props.allSuggestions();
-    props.createSuggestion();
+    //props.createSuggestion();
     props.userInfo();
   }, []);
 
@@ -60,6 +61,14 @@ function App(props: any) {
           <MoreInfo />
           <br />
         </div>
+        }   
+
+        {
+          props.showSuggestions &&
+          <div>
+            <SuggestionsBox />
+            <br />
+          </div>
         }
         
     </div>
@@ -70,7 +79,8 @@ const mapStateToProps = (state: any) => {
   return {
     user: state.Account.get('user'),
     error: state.Account.get('error'),
-    comment: state.Polls.get('comment')
+    comment: state.Polls.get('comment'),
+    showSuggestions: state.Suggestions.get('showSuggestions')
   };
 };
 

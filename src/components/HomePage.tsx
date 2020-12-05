@@ -18,6 +18,9 @@ function HomePage(props: any) {
             ? props.poll.results.responses[props.username]
             : null
         }
+        showSuggestions={
+          props.showSuggestions
+        }
       />
       <CommentSection respond={props.comment} pollId={props.poll.id} comments={props.poll.comments} addcomment={props.user} />
     </div>
@@ -43,6 +46,9 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     comment: (comment : string, pollId: string) => {
       Actions.poll.comment(dispatch, comment, pollId);
+    },
+    showSuggestions: () => {
+      Actions.suggestion.showSuggestions(dispatch, true);
     }
   };
 };
