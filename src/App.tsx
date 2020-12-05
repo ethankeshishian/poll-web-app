@@ -17,6 +17,8 @@ function App(props: any) {
 
   useEffect(() => {
     props.latest();
+    props.allSuggestions();
+    props.createSuggestion();
     props.userInfo();
   }, []);
 
@@ -86,6 +88,15 @@ const mapDispatchToProps = (dispatch: any) => {
     logout: () => {
       Actions.account.logout(dispatch);
     },
+    allSuggestions: () => {
+      dispatch(Actions.suggestion.allSuggestions());
+    },
+    createSuggestion: () => {
+      Actions.suggestion.create(dispatch, {
+        poll_question: "This is a poll",
+        poll_responses: ["A", "B"]
+      })
+    }
   };
 };
 
