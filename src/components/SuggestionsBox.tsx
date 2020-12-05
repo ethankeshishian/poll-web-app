@@ -18,17 +18,25 @@ function SuggestionBox(props : any) {
     <div className="popup-window">
       <button className="close-window" onClick={props.hideSuggestions}>X</button>
       <h3 className="header">Vote for Tomorrow's Poll</h3>
-      {props.ourVote && <h4 className="sub-header">You've already voted today</h4>}
+      {props.ourVote && <h4 className="sub-header">You've already voted for the following poll:</h4>}
 
-        {props.allSuggestions.map((suggestion: any, index: number) => (
-            <Suggestion key={suggestion.id}
-              poll={{poll_question: suggestion.poll_question, poll_responses: suggestion.poll_responses}}
-              onClick={() => {props.voteSuggestion(suggestion.id)}}/>
-        ))}
+        {props.allSuggestions.map((suggestion: any, index: number) => {
+            if (!props.ourVote || props.ourVote === suggestion.id) return (
+              <Suggestion key={suggestion.id}
+                poll={{poll_question: suggestion.poll_question, poll_responses: suggestion.poll_responses}}
+                onClick={() => {props.user ? props.voteSuggestion(suggestion.id) : props.oauth()}}/>
+            )
+        })}
 
-        <CustomSuggestion></CustomSuggestion>
+        {!props.ourVote &&
+        <>
+          <h4>Or, Suggest your own poll!</h4>
 
-      <SmallButtonDefault onClick={props.createSuggestion}>Suggest Poll</SmallButtonDefault>
+          <CustomSuggestion></CustomSuggestion>
+
+          <SmallButtonDefault onClick={props.createSuggestion}>Suggest Poll</SmallButtonDefault>
+        </>
+        }
     </div>
   </>
   );
@@ -38,7 +46,8 @@ const mapStateToProps = (state: any) => {
   return {
     allSuggestions: state.Suggestions.get('allSuggestions'),
     ourVote: state.Suggestions.get('votedSuggestion'),
-    customPollSuggestion: state.Suggestions.get('currentCustomPollSuggestion')
+    customPollSuggestion: state.Suggestions.get('currentCustomPollSuggestion'),
+    user: state.Account.get('user'),
   };
 };
 
@@ -52,7 +61,10 @@ const mapDispatchToProps = (dispatch : any) => {
     },
     createSuggestion: () => {
       dispatch(Actions.suggestion.create())
-    }
+    },
+    oauth: () => {
+      Actions.account.OAuth();
+    },
   };
 };
 
