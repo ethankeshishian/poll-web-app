@@ -100,12 +100,6 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     allSuggestions: () => {
       dispatch(Actions.suggestion.allSuggestions());
-    },
-    createSuggestion: () => {
-      Actions.suggestion.create(dispatch, {
-        poll_question: "This is a poll",
-        poll_responses: ["A", "B"]
-      })
     }
   };
 };
