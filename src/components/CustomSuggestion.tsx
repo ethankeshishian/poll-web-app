@@ -11,15 +11,15 @@ import { Actions } from '../reducer';
 function CustomSuggestion(props: any) {
   return (
     <button className="option-btn">
-        <InvisibleTextBox subject="Question..." onChange={(text) => props.updateQuestion(text.target.value)}/>
+        <InvisibleTextBox subject="Question..." onChange={(text: any) => props.updateQuestion(text.target.value)}/>
         <br/>
         <div className="responses-box">
             <div className="response-text">
-                <InvisibleTextBox subject="Response A" onChange={(text) => props.updateResponseA(text.target.value)}/>
+                <InvisibleTextBox subject="Response A" onChange={(text: any) => props.updateResponseA(text.target.value)}/>
             </div>
             |
             <div className="response-text">
-                <InvisibleTextBox subject="Response B" onChange={(text) => props.updateResponseB(text.target.value)}/>
+                <InvisibleTextBox subject="Response B" onChange={(text: any) => props.updateResponseB(text.target.value)}/>
             </div>
         </div>
     </button>
