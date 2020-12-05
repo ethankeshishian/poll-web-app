@@ -3,6 +3,9 @@ import "../styles/global.css";
 import "../styles/PollContainer.css";
 import Poll from "./Poll";
 
+import { connect } from "react-redux";
+import { Actions } from "../reducer";
+
 function PollContainer(props: any) {
   if (props.response)
     return (
@@ -35,15 +38,29 @@ function PollContainer(props: any) {
         options={props.poll.poll_responses || null}
         mainpoll={props.mainpoll}
         respond={(responseId) => {
-          props.respond(props.poll.id, responseId);
+          props.user? props.respond(props.poll.id, responseId) : props.oauth();
         }}
       />
       <div className="poll-footer">
         <h3 className="footer-title" onClick={() => {}}>VIEW DETAILED RESULTS</h3>
-        <h3 className="footer-title" onClick={() => props.showSuggestions()}>VOTE FOR TOMORROW'S POLL</h3>
+        <h3 className="footer-title" onClick={() => props.user ? props.showSuggestions(): props.oauth()}>VOTE FOR TOMORROW'S POLL</h3>
       </div>
     </div>
   );
 }
 
-export default PollContainer;
+const mapStateToProps = (state: any) => {
+  return {
+    user: state.Account.get("user"),
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    oauth: () => {
+      Actions.account.OAuth();
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PollContainer);

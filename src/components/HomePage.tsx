@@ -11,7 +11,7 @@ function HomePage(props: any) {
     <div className="home-page">
       <PollContainer
         poll={props.poll}
-        respond={props.user ? props.respond : props.oauth}
+        respond={props.respond}
         mainpoll={true}
         response={
           props.poll.results
