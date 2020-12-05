@@ -1,6 +1,8 @@
-.option-btn {
+/* .option-btn {
+  background: linear-gradient(to right, #f26475 50%, #ffc6cd 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
   color: white;
-  background-color: #f26475;
   border-radius: 20px;
   padding: 20px 40px;
   width: 100%;
@@ -12,8 +14,18 @@
   filter: drop-shadow(2px 4px 10px rgba(0, 0, 0, 0.25));
   outline: none;
   cursor: pointer;
+} */
+/* @keyframes slideInFromLeft {
+  0% {
+    background-position: right bottom;
+  }
+  100% {
+    background-position: calc(100% - 10%) bottom;
+  }
+} */
+.add-animation {
+  animation: 1s ease-out 1 slideInFromLeft forwards;
 }
-
 .pollbutton-table-question {
   width: 100%;
   text-align: left;
@@ -24,8 +36,4 @@
   /* "sub" works because it lowers the icon */
   vertical-align: sub;
   display: inline;
-}
-
-.poll-icon {
-  /* display: inline; */
 }
