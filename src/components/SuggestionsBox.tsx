@@ -24,7 +24,7 @@ function SuggestionBox(props : any) {
             if (!props.ourVote || props.ourVote === suggestion.id) return (
               <Suggestion key={suggestion.id}
                 poll={{poll_question: suggestion.poll_question, poll_responses: suggestion.poll_responses}}
-                onClick={() => {props.user ? props.voteSuggestion(suggestion.id) : props.oauth()}}/>
+                onClick={() => {!props.ourVote && (props.user ? props.voteSuggestion(suggestion.id) : props.oauth())}}/>
             )
         })}
 
