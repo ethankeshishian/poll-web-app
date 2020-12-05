@@ -35,7 +35,7 @@ function ProfilePage(props: any) {
         <h1 className="bold">
           Welcome, {getName(props.user ? props.user[4].Value : 'Loading...')}!
         </h1>
-        <SmallButtonDefault onClick={props.logout} text="Log out" />
+        <SmallButtonDefault onClick={props.logout}>Log out</SmallButtonDefault>
       </div>
       <div className="profile-subheading-container">
         <h2 className="profile-subheading heavy">Your Past Polls</h2>
