@@ -13,3 +13,19 @@
   outline: none;
   cursor: pointer;
 }
+
+.pollbutton-table-question {
+  width: 100%;
+  text-align: left;
+  padding-left: 4px;
+}
+
+.pollbutton-icon {
+  /* "sub" works because it lowers the icon */
+  vertical-align: sub;
+  display: inline;
+}
+
+.poll-icon {
+  /* display: inline; */
+}
