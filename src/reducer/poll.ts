@@ -15,17 +15,17 @@ const latest = () => async (dispatch: any, getState: any) => {
 
   const state = getState();
   console.log(state);
-  const username = state.Account.get("key").username;
-  console.log(username)
-  const response = poll.results.responses[username];
-  console.log(response);
-  console.log(response.response)
+  const key = state.Account.get("key");
 
-  if (response) {
-    dispatch({
-      type: "respond",
-      responseId: response.response
-    })
+  if (key) {
+    const username = key.username;
+    const response = poll.results.responses[username];
+    if (response) {
+      dispatch({
+        type: "respond",
+        responseId: response.response
+      })
+    }
   }
 
   dispatch({
