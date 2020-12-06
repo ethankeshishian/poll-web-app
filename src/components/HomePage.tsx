@@ -13,11 +13,6 @@ function HomePage(props: any) {
         poll={props.poll}
         respond={props.respond}
         mainpoll={true}
-        response={
-          props.poll.results
-            ? props.poll.results.responses[props.username]
-            : null
-        }
         showSuggestions={props.showSuggestions}
         votes={props.poll.results ? props.poll.results.responses_totals : null}
         usersVote={props.response}

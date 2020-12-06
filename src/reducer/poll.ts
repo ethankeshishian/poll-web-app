@@ -5,13 +5,28 @@ import awsconfig from "../awsconfig";
 
 Amplify.configure(awsconfig);
 
-const latest = async (dispatch: any) => {
+const latest = () => async (dispatch: any, getState: any) => {
   const polls = await API.get("pollApi", "/polls/latest", {});
 
-  let poll = {};
+  let poll = {} as any;
 
   if (polls[0])
     poll = polls[0];
+
+  const state = getState();
+  console.log(state);
+  const username = state.Account.get("key").username;
+  console.log(username)
+  const response = poll.results.responses[username];
+  console.log(response);
+  console.log(response.response)
+
+  if (response) {
+    dispatch({
+      type: "respond",
+      responseId: response.response
+    })
+  }
 
   dispatch({
     type: "latest",

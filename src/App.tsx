@@ -87,7 +87,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     latest: () => {
-      Actions.poll.latest(dispatch);
+      dispatch(Actions.poll.latest());
     },
     userInfo: () => {
       Actions.account.userInfo(dispatch);
