@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/PollButton.css';
 import '../styles/Suggestion.css';
 
 //Typscript note: the following would have been "props" in JS.
