@@ -122,7 +122,6 @@ const respondToSinglePoll = function (req, res) {
     ConditionExpression:
       "#type = :type AND attribute_not_exists(timestamp_closed)",
     ExpressionAttributeValues: {
-      ":val": 1,
       ":userResponse": {
         response: responseInt,
         timestamp: Date.now().toString(),
