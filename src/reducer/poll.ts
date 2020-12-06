@@ -84,6 +84,16 @@ const defaultState = Immutable.fromJS({
 const Polls = (state = defaultState, action: any) => {
   switch (action.type) {
     case "latest": {
+
+      /* Calculate the totals from the responses, by counting the number of '0' responses
+         and the number of '1' responses. */
+      const results = [0, 0];
+      Object.values(action.poll.results.responses)
+        .map((response: any) => response.response)
+        .forEach((responseId: number) => results[responseId]++);
+
+      action.poll.results.responses_totals = results;
+
       return state.withMutations((val: any) => {
         val.setIn(["poll"], action.poll);
         val.setIn(["comment"], null);

@@ -95,7 +95,7 @@ const respondToSinglePoll = function (req, res) {
 
   const responseInt = parseInt(responseId);
 
-  if (responseInt === NaN) {
+  if (responseInt === NaN || responseInt < 0 || responseInt > 1) {
     res.statusCode = 400;
     res.json({ error: "Invalid Response Id" });
     return;
@@ -107,14 +107,20 @@ const respondToSinglePoll = function (req, res) {
     return;
   }
 
+  /*
+  To calculate totals, and disable changing vote:
+  UpdateExpression: ADD results.responses_totals[${responseInt}] :val
+  ConditionExpression: attribute_not_exists(results.responses.#userId)
+  */
+
   let queryParams = {
     TableName: tableName,
     Key: {
       id: pollId,
     },
-    UpdateExpression: `ADD results.responses_totals[${responseInt}] :val SET results.responses.#userId = :userResponse`,
+    UpdateExpression: `SET results.responses.#userId = :userResponse`,
     ConditionExpression:
-      "#type = :type AND attribute_not_exists(timestamp_closed) AND attribute_not_exists(results.responses.#userId)",
+      "#type = :type AND attribute_not_exists(timestamp_closed)",
     ExpressionAttributeValues: {
       ":val": 1,
       ":userResponse": {
