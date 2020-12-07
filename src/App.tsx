@@ -18,6 +18,7 @@ function App(props: any) {
 
   useEffect(() => {
     props.latest();
+    props.all();
     props.allSuggestions();
     //props.createSuggestion();
     props.userInfo();
@@ -88,6 +89,9 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     latest: () => {
       dispatch(Actions.poll.latest());
+    },
+    all: () => {
+      Actions.poll.all(dispatch);
     },
     userInfo: () => {
       Actions.account.userInfo(dispatch);

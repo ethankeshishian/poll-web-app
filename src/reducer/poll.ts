@@ -37,8 +37,8 @@ const latest = () => async (dispatch: any, getState: any) => {
 const all = async (dispatch: any) => {
     const polls = await API.get("pollApi", "/polls", {});;
     dispatch({
-        type: "all",
-        poll: polls,
+        type: "allPolls",
+        allPolls: polls,
     });
 }
 
@@ -76,7 +76,7 @@ const comment = async (dispatch: any, comment: string, pollId: String) => {
 
 const defaultState = Immutable.fromJS({
   poll: {},
-  all: null,
+  all: {},
   response: null,
   comment: null,
 });
@@ -99,10 +99,17 @@ const Polls = (state = defaultState, action: any) => {
         val.setIn(["comment"], null);
       });
     }
-    case "all": {
-        return state.withMutations((val: any) => {
-          val.setIn(["all"], action.all);
-        });
+    case "allPolls": {
+      const allPolls = {} as any;
+      for (const poll of Object.values(action.allPolls) as {poll_date: string}[]) {
+        if (!poll.poll_date) continue;
+        
+        allPolls[poll.poll_date] = poll;
+      }
+
+      return state.withMutations((val: any) => {
+        val.setIn(["all"], allPolls);
+      });
       }
     case "respond": {
       return state.withMutations((val: any) => {

@@ -14,7 +14,6 @@ function HomePage(props: any) {
         respond={props.respond}
         mainpoll={true}
         showSuggestions={props.showSuggestions}
-        votes={props.poll.results ? props.poll.results.responses_totals : null}
         usersVote={props.response}
       />
       <CommentSection
