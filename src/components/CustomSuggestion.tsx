@@ -9,19 +9,17 @@ import { Actions } from '../reducer';
 //This is saying props is of type object, which contains "question" of type string
 function CustomSuggestion(props: any) {
   return (
-    <button className="option-btn">
-        <InvisibleTextBox subject="Question..." onChange={(text: any) => props.updateQuestion(text.target.value)}/>
-        <br/>
-        <div className="responses-box">
-            <div className="response-text">
-                <InvisibleTextBox subject="Response A" onChange={(text: any) => props.updateResponseA(text.target.value)}/>
-            </div>
-            |
-            <div className="response-text">
-                <InvisibleTextBox subject="Response B" onChange={(text: any) => props.updateResponseB(text.target.value)}/>
-            </div>
-        </div>
+    <>
+      <button className="option-btn">
+        <InvisibleTextBox subject="Poll Question" onChange={(text: any) => props.updateQuestion(text.target.value)}/>
+      </button>
+      <button className="suggest-option-btn">
+        <InvisibleTextBox subject="Your Option A" onChange={(text: any) => props.updateResponseA(text.target.value)}/>
+      </button>
+      <button className="suggest-option-btn">
+        <InvisibleTextBox subject="Your Option B" onChange={(text: any) => props.updateResponseB(text.target.value)}/>
     </button>
+    </>
   )
 }
 

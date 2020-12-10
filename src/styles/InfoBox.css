@@ -23,3 +23,10 @@
 
     cursor: mouse;
 }
+
+.select-info {
+    height: 40px;
+    padding: unset;
+    padding-top: 9px;
+    padding-left: 35px;
+}

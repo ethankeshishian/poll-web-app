@@ -3,37 +3,39 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -13%;
-    margin-top: -11%;
     padding: 2% 5%;
     height: auto;
     width: 440px;
-    background: #FFFFFF;
+    margin-left: -245px;
+    margin-top: -240px;
+    background: #ffffff;
 }
 
-/* Additional Info */
+/* Tomorrow's Poll */
 .header {
-    z-index: 100;
+    position: relative;
+    justify-content: center;
+    letter-spacing: -0.015em;
+    margin-top: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    color: #000000;
+}
+
+.suggest-header {
     display: flex;
     position: relative;
     justify-content: center;
-
     letter-spacing: -0.015em;
-    font-family: Montserrat;
     font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 72px;
+    font-weight: 500;
+    font-size: 20px;
 
     color: #000000;
 }
 
-.sub-header {
-    margin-top: -40px;
-}
-
 .submission-button {
-    z-index: 100;
     display: flex;
     position: relative;
     align-items: center;
@@ -42,7 +44,6 @@
     width: 320px;
     margin: auto;
     margin-top: -10px;
-
     color: #FFFFFF;
     background-color: #F26475;
     border: none;
@@ -50,47 +51,21 @@
     border-radius: 5px;
     padding: 20px 40px;
     font-size: 16px;
-
     cursor: pointer;
 }
 
 .close-window {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    float: right;
     color: #4D4D4D;
     font-size: 18px;
     background: #FFFFFF;
     border: none;
+    height: 0px;
+    width: 0px;
+    top: 10px;
+    right: 10px;
     margin-left: auto;
     margin-bottom: -45px;
-    padding: 10px 10px;
     cursor: pointer;
 }
-/* Use later for implementing Age/Gender dropdowns */
-/* Positioning the dropdown box */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Contents of dropdown list (hidden by default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Text on the dropdown list */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-  
-/* Show the dropdown menu on click */
-.show {display:block;}

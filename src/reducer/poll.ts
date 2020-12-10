@@ -100,8 +100,15 @@ const Polls = (state = defaultState, action: any) => {
     }
     case "allPolls": {
       const allPolls = {} as any;
-      for (const poll of Object.values(action.allPolls) as {poll_date: string}[]) {
+      for (const poll of Object.values(action.allPolls) as any) {
         if (!poll.poll_date) continue;
+
+        const results = [0, 0];
+        Object.values(poll.results.responses)
+          .map((response: any) => response.response)
+          .forEach((responseId: number) => results[responseId]++);
+  
+        poll.results.responses_totals = results;
         
         allPolls[poll.poll_date] = poll;
       }
