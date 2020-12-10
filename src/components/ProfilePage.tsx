@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { Actions } from '../reducer';
 
 function ProfilePage(props: any) {
-
   console.log(props.key)
   //replace with name from backend
   const getName = (name: string) => {
@@ -39,7 +38,7 @@ function ProfilePage(props: any) {
   return (
     <div className="profile-page">
       <div className="profile-heading">
-        <h1 className="bold">
+        <h1 className="profile-welcome">
           Welcome, {getName(props.user ? props.user[4].Value : 'Loading...')}!
         </h1>
         <SmallButtonDefault onClick={props.logout}>Log out</SmallButtonDefault>
