@@ -65,7 +65,7 @@ function ProfilePage(props: any) {
               date={calendarDate}
               respond={props.respond}
               previous={true}
-              userVote={props.allPolls[UTCDate].results.responses[props.username] ?
+              usersVote={props.allPolls[UTCDate].results.responses[props.username] ?
                 props.allPolls[UTCDate].results.responses[props.username].response :
                 null}
             />
