@@ -158,7 +158,13 @@ function PollButton(props: {
               )}
             </td>
             <td className="pollbutton-table-question">{props.question}</td>
-            <td>{props.hasVoted ? votePercentage.toString() + '%' : ''}</td>
+            <td>
+              {props.isOld
+                ? votePercentage.toString() + '%'
+                : props.hasVoted
+                ? votePercentage.toString() + '%'
+                : ''}
+            </td>
           </tr>
         </table>
       </StyledButton>
