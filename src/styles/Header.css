@@ -24,13 +24,16 @@
 .right:hover {
   text-decoration: underline;
   text-decoration-color: #f26475;
-  color: #f26475
+  color: #f26475;
 }
 
 .icon {
   padding-left: 20px;
 }
 
+.icon-container {
+  display: flex;
+}
 /* Mobile Header */
 @media (max-width: 420px) {
   .header-link {
