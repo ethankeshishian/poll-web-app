@@ -95,6 +95,8 @@ const deleteSuggestion = async function (suggestionId) {
   });
 };
 
+const dateTimeInPST = Date.now() - 2.88e+7
+
 const createPoll = async function (suggestion) {
   return new Promise((resolve, reject) => {
     let queryParams = {
@@ -106,6 +108,7 @@ const createPoll = async function (suggestion) {
         poll_question: suggestion.poll_question,
         poll_responses: suggestion.poll_responses,
         timestamp: Date.now().toString(),
+        poll_date: new Date(dateTimeInPST).setUTCHours(0, 0, 0, 0),
         results: {
           responses_totals: [0, 0],
           responses: {},

@@ -40,7 +40,7 @@ function PollContainer(props: any) {
         respond={(responseId) => {
           props.user ? props.respond(props.poll.id, responseId) : props.oauth();
         }}
-        votes={props.votes}
+        votes={props.poll.results ? props.poll.results.responses_totals : null}
         usersVote={props.usersVote}
       />
       <div className="poll-footer">

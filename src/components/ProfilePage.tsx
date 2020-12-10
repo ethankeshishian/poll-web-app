@@ -25,8 +25,13 @@ function ProfilePage(props: any) {
     new Date().toLocaleDateString('en-US', options)
   );
 
+  const [UTCDate, setUTCDate]: any = useState(
+    new Date().getTime()
+  )
+
   const handleCalendarClick = (e: any) => {
     setCalendarDate(e.toLocaleDateString('en-US', options));
+    setUTCDate(e.getTime());
   };
 
   return (
@@ -50,17 +55,21 @@ function ProfilePage(props: any) {
           />
         </div>
         <div>
-          <PollContainer
-            poll={props.poll}
-            mainpoll={false}
-            date={calendarDate}
-            respond={props.respond}
-          />
-          <CommentSection
-            respond={null}
-            comments={props.poll.comments}
-            addcomment={false}
-          />
+          {props.allPolls[UTCDate] && 
+          <>
+            <PollContainer
+              poll={props.allPolls[UTCDate]}
+              mainpoll={false}
+              date={calendarDate}
+              respond={props.respond}
+            />
+            <CommentSection
+              respond={null}
+              comments={props.allPolls[UTCDate].comments}
+              addcomment={false}
+            />
+          </>
+          }
         </div>
       </div>
     </div>
@@ -70,6 +79,7 @@ function ProfilePage(props: any) {
 const mapStateToProps = (state: any) => {
   return {
     poll: state.Polls.get('poll'),
+    allPolls: state.Polls.get('all'),
     user: state.Account.get('user'),
     error: state.Account.get('error'),
   };
