@@ -9,7 +9,8 @@ function InfoBox(props: { subject: string, onChange?: any, gender?: boolean, val
         <input className = "info-box" onChange={props.onChange} type="text" placeholder={props.subject}/>
         }
         {props.gender && 
-        <select className = "info-box" value={props.value} onChange={props.onChange}>
+        <select className = "info-box select-info" value={props.value} onChange={props.onChange}>
+          <option value="" disabled selected>Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
           <option value="Other">Other</option>
