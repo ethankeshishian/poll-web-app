@@ -5,7 +5,7 @@ import '../styles/global.css';
 function AboutPage() {
   return (
     <div className="about-page">
-      <h2 className="heavy">About Us</h2>
+      <h2 className="about-heading">About Us</h2>
       <p className="about-text">
         We're Pollify &mdash; a social polling application that allows users to
         vote on a new poll every day. Each poll varies in topic, and provides an
@@ -15,11 +15,7 @@ function AboutPage() {
         five UCLA students who wanted to provide a fun and engaging platform for
         people from all walks of life to share their opinions.
       </p>
-      <form>
-        <label>
-          <textarea className="about-text-box" />
-        </label>
-      </form>
+      <img className="icon-large" src="logo.png"></img>
     </div>
   );
 }
