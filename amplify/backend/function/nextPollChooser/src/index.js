@@ -78,18 +78,105 @@ exports.handler = async (event) => {
 };
 
 const computeAnalytics = async function(pollId, pollData) {
+  return new Promise(async (resolve, reject) => {
   const responses = pollData.results.responses;
-  const responsesCount = responses.length
+  const responsesCount = responses.length;
+
+  const gendersTotal = {
+    Male: 0,
+    Female: 0,
+    Other: 0
+  };
+
+  const genders0 = {
+    Male: 0,
+    Female: 0,
+    Other: 0
+  };
+
+  const genders1 = {
+    Male: 0,
+    Female: 0,
+    Other: 0
+  };
+
+  const ages = [];
+
+  const IsValidGender = function(gender) {
+    return gender == "Male" || gender == "Female" || gender == "Other"
+  }
 
   for (const Username in responses) {
+    const attributes = await getUserAttributes(Username);
+    console.log("User Attributes:")
+    console.log(attributes);
+
+    for (const attribute of attributes) {
+      if (attribute.Name == "gender") {
+        if (!IsValidGender(attribute.Value)) continue;
+        gendersTotal[attribute.Value]++;
+
+        if (responses[Username].response === 0) {
+          genders0[attribute.Value]++;
+        } else if (responses[Username].response === 1) {
+          genders1[attribute.Value]++;
+        }
+      }
+
+      if (attribute.Name == "custom:age") {
+        ages.push(attribute.Value);
+      }
+    }
+  }
+
+  const totalAge = ages.reduce((acc, c) => acc + c, 0); 
+  const averageAge = totalAge / ages.length;
+
+  let queryParams = {
+    TableName: tableName,
+    Key: {
+      id: pollId,
+    },
+    UpdateExpression: "SET results.#analytics = :analytics",
+    ExpressionAttributeValues: {
+      ":analytics": {
+        genders: [
+          genders0,
+          genders1
+        ],
+        genders_totals: gendersTotal,
+        average_age: averageAge
+      }
+    },
+    ExpressionAttributeNames: {
+      "#analytics": "analytics",
+    },
+    ReturnValues: "ALL_NEW",
+  };
+
+  dynamodb.update(queryParams, (err, data) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(data);
+    }
+  });
+
+});
+}
+
+const getUserAttributes = async function(Username) {
+  return new Promise(async (resolve, reject) => {
     const request = await cognitoID.adminGetUser({
       UserPoolId,
       Username
     }, (err, data) => {
-      console.log("User Data:")
-      console.log(data);
+      if (err)
+        reject(err);
+      else
+        resolve(data.UserAttributes);
     });
-  }
+  })
 }
 
 const getSuggestedPolls = async function () {
