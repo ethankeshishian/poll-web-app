@@ -9,6 +9,7 @@ function Poll(props: {
   respond: (response: Number) => void;
   votes: number[];
   usersVote: number;
+  isOld: boolean;
 }) {
   const hasVoted = props.usersVote === null ? false : true;
   const totalVotes: number = props.votes
@@ -51,6 +52,7 @@ function Poll(props: {
             animateNext={animateNext}
             setAnimateFrom0={setAnimateFrom0}
             setAnimateNext={setAnimateNext}
+            isOld={props.isOld}
           />
         ))}
       {!props.options && (
@@ -65,6 +67,7 @@ function Poll(props: {
             animateNext={animateNext}
             setAnimateFrom0={setAnimateFrom0}
             setAnimateNext={setAnimateNext}
+            isOld={props.isOld}
           />
           <PollButton
             question="Loading..."
@@ -76,6 +79,7 @@ function Poll(props: {
             animateNext={animateNext}
             setAnimateFrom0={setAnimateFrom0}
             setAnimateNext={setAnimateNext}
+            isOld={props.isOld}
           />
         </>
       )}
