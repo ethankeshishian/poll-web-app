@@ -28,12 +28,12 @@ function ProfilePage(props: any) {
   );
 
   const [UTCDate, setUTCDate]: any = useState(
-    new Date().getTime()
+    new Date().setUTCHours(0, 0, 0, 0)
   )
 
   const handleCalendarClick = (e: any) => {
     setCalendarDate(e.toLocaleDateString('en-US', options));
-    setUTCDate(e.getTime());
+    setUTCDate(new Date(e).setUTCHours(0, 0, 0, 0));
   };
 
   return (
