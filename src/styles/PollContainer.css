@@ -5,11 +5,36 @@
   flex-direction: column;
 }
 
+.poll-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-title {
+  margin: 0;
+  cursor: pointer;
+}
+
 .title {
   font-size: 64px;
   line-height: 8px;
+  margin-bottom: 16px;
 }
 
 .old-title {
   margin: 0;
+}
+
+@media (max-width: 420px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .footer-title {
+    padding-top: 20px;
+    font-size: 18px;
+  }
 }

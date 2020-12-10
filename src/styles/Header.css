@@ -9,7 +9,7 @@
 
 .left {
   margin-right: auto;
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 .header-link {
@@ -24,4 +24,37 @@
 .right:hover {
   text-decoration: underline;
   text-decoration-color: #f26475;
+  color: #f26475;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  padding-left: 20px;
+}
+
+.icon-container {
+  display: flex;
+}
+/* Mobile Header */
+@media (max-width: 420px) {
+  .header-link {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .right {
+    margin-right: 10px;
+  }
+
+  .left {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding-left: 20px;
+  }
 }

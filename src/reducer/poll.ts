@@ -1,23 +1,43 @@
 import Immutable from "immutable";
 
 import Amplify, { API } from "aws-amplify";
-import awsconfig from "../aws-exports";
+import awsconfig from "../awsconfig";
 
 Amplify.configure(awsconfig);
 
-const latest = async (dispatch: any) => {
-  const poll = await API.get("pollApi", "/polls/latest", {});
+const latest = () => async (dispatch: any, getState: any) => {
+  const polls = await API.get("pollApi", "/polls/latest", {});
+
+  let poll = {} as any;
+
+  if (polls[0])
+    poll = polls[0];
+
+  const state = getState();
+  const key = state.Account.get("key");
+
+  if (key) {
+    const username = key.username;
+    const response = poll.results.responses[username];
+    if (response) {
+      dispatch({
+        type: "respond",
+        responseId: response.response
+      })
+    }
+  }
+
   dispatch({
     type: "latest",
-    poll: poll[0],
+    poll,
   });
 };
 
 const all = async (dispatch: any) => {
     const polls = await API.get("pollApi", "/polls", {});;
     dispatch({
-        type: "all",
-        poll: polls,
+        type: "allPolls",
+        allPolls: polls,
     });
 }
 
@@ -55,7 +75,7 @@ const comment = async (dispatch: any, comment: string, pollId: String) => {
 
 const defaultState = Immutable.fromJS({
   poll: {},
-  all: null,
+  all: {},
   response: null,
   comment: null,
 });
@@ -63,15 +83,39 @@ const defaultState = Immutable.fromJS({
 const Polls = (state = defaultState, action: any) => {
   switch (action.type) {
     case "latest": {
+
+      /* Calculate the totals from the responses, by counting the number of '0' responses
+         and the number of '1' responses. */
+      const results = [0, 0];
+      Object.values(action.poll.results.responses)
+        .map((response: any) => response.response)
+        .forEach((responseId: number) => results[responseId]++);
+
+      action.poll.results.responses_totals = results;
+
       return state.withMutations((val: any) => {
         val.setIn(["poll"], action.poll);
         val.setIn(["comment"], null);
       });
     }
-    case "all": {
-        return state.withMutations((val: any) => {
-          val.setIn(["all"], action.all);
-        });
+    case "allPolls": {
+      const allPolls = {} as any;
+      for (const poll of Object.values(action.allPolls) as any) {
+        if (!poll.poll_date) continue;
+
+        const results = [0, 0];
+        Object.values(poll.results.responses)
+          .map((response: any) => response.response)
+          .forEach((responseId: number) => results[responseId]++);
+  
+        poll.results.responses_totals = results;
+        
+        allPolls[poll.poll_date] = poll;
+      }
+
+      return state.withMutations((val: any) => {
+        val.setIn(["all"], allPolls);
+      });
       }
     case "respond": {
       return state.withMutations((val: any) => {

@@ -112,9 +112,14 @@ const createNewSuggestedPoll = function (req, res) {
       poll_question: pollQuestion,
       poll_responses: pollResponses,
       timestamp: Date.now().toString(),
+      suggested_by: userId,
       results: {
-        suggestions: {},
-        suggestions_total: 0,
+        suggestions: {
+          [userId]: {
+            timestamp: Date.now().toString(),
+          }
+        },
+        suggestions_total: 1,
       },
     },
     ConditionExpression: "attribute_not_exists(id)",

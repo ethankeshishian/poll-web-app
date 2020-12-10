@@ -1,5 +1,16 @@
 .home-page {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  column-gap: 32px;
+  grid-template-columns: 60% 30%;
+  column-gap: 100px;
+  margin-left: 50px;
+  margin-right: 40px;
+  margin-top: 80px;
+}
+
+@media (max-width: 420px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+  }
+
 }

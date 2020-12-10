@@ -1,0 +1,26 @@
+.text-box {
+    color: inherit;
+    font-size: inherit;
+    width: 100%;
+
+    z-index: 100;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    text-align: flex-start;
+
+    cursor: mouse;
+}
+
+.text-box::placeholder {
+    color: inherit;
+    font-size: inherit;
+}

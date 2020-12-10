@@ -1,8 +1,19 @@
 .question {
   font-size: 30px;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
+  text-align: left;
 }
 
 .old-question {
   font-size: 24px;
+}
+
+@media (max-width: 420px) {
+  .question {
+    font-size: 20px;
+  }
+
+  .old-question {
+    font-size: 15px;
+  }
 }

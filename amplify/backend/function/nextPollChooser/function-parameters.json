@@ -7,6 +7,11 @@
         "update",
         "delete"
       ]
+    },
+    "auth": {
+      "cs97pollwebappa7bc17b0": [
+        "read"
+      ]
     }
   },
   "lambdaLayers": []

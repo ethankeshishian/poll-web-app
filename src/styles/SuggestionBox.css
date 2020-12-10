@@ -1,0 +1,71 @@
+.popup-window {
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 2% 5%;
+    height: auto;
+    width: 440px;
+    margin-left: -245px;
+    margin-top: -240px;
+    background: #ffffff;
+}
+
+/* Tomorrow's Poll */
+.header {
+    position: relative;
+    justify-content: center;
+    letter-spacing: -0.015em;
+    margin-top: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    color: #000000;
+}
+
+.suggest-header {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    letter-spacing: -0.015em;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #000000;
+}
+
+.submission-button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 320px;
+    margin: auto;
+    margin-top: -10px;
+    color: #FFFFFF;
+    background-color: #F26475;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 20px 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.close-window {
+    position: absolute;
+    float: right;
+    color: #4D4D4D;
+    font-size: 18px;
+    background: #FFFFFF;
+    border: none;
+    height: 0px;
+    width: 0px;
+    top: 10px;
+    right: 10px;
+    margin-left: auto;
+    margin-bottom: -45px;
+    cursor: pointer;
+}

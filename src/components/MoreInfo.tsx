@@ -18,11 +18,11 @@ function MoreInfo(props : any) {
   <>
     <Background />
     <div className="popup-window">
-      <button className="close-window">X</button>
+      {/* <button className="close-window">X</button> */}
       <h3 className="header">Additional Info</h3>
       <InfoBox onChange={(event : any) => setName(event.target.value)} subject="Name"/>
       <InfoBox onChange={(event : any) => setAge(event.target.value)} subject="Age"/>
-      <InfoBox onChange={(event : any) => setGender(event.target.value)} subject="Gender"/>
+      <InfoBox onChange={(event : any) => setGender(event.target.value)} gender={true} value={gender} subject="Gender"/>
       <InfoBox onChange={(event : any) => setLocation(event.target.value)} subject="City"/>
       <button 
       onClick={() => {

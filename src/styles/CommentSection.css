@@ -8,6 +8,7 @@
 .comments-section-heading {
   font-size: 36px;
   text-align: start;
+  margin-bottom: 10px;
 }
 .comments-container {
   width: 100%;
@@ -28,10 +29,10 @@
   width: 100%;
   border-radius: 10px;
   border: 1px solid #969696;
-  height: 100px; /* should be modified when comments are availabe */
+  height: 60px; /* should be modified when comments are availabe */
   outline: none;
   padding: 10px 10px;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: -0.015em;
   color: #4D4D4D;
 }
@@ -40,7 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: auto;
+  margin-left: 324px;
   width: 80px;
   height: 24px;
   background: #F26475;
