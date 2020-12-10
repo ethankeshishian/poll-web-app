@@ -6,7 +6,7 @@ function Header() {
   return (
     <div className="header">
       <Link className="icon-container" to="/">
-        <img className="icon" src="logo.png"></img>
+        <img className="icon" src="logo512.png"></img>
       </Link>
       <Link className="header-link heavy left" to="/">
         POLLIFY
