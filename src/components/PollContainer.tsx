@@ -42,28 +42,32 @@ function PollContainer(props: any) {
         }}
         votes={props.poll.results ? props.poll.results.responses_totals : null}
         usersVote={props.usersVote}
+        isOld={props.isOld}
       />
-      {!props.previous &&
-      <div className="poll-footer">
-        {/* <h3 className="footer-title" onClick={() => {}}>
+      {!props.previous && (
+        <div className="poll-footer">
+          {/* <h3 className="footer-title" onClick={() => {}}>
           VIEW DETAILED RESULTS
         </h3> */}
-        <h3
-          className="footer-title"
-          onClick={() => (props.user ? props.showSuggestions() : props.oauth())}
-        >
-          VOTE FOR TOMORROW'S POLL
-        </h3>
-      </div>
-      }
-      {
-        props.poll?.results?.analytics &&
+          <h3
+            className="footer-title"
+            onClick={() =>
+              props.user ? props.showSuggestions() : props.oauth()
+            }
+          >
+            VOTE FOR TOMORROW'S POLL
+          </h3>
+        </div>
+      )}
+      {props.poll?.results?.analytics && (
         <>
-        Average Age on this Poll: {props.poll.results.analytics.average_age}
-        Distribution for 0: {JSON.stringify(props.poll.results.analytics.genders[0])}
-        Distribution for 1: {JSON.stringify(props.poll.results.analytics.genders[1])}
+          Average Age on this Poll: {props.poll.results.analytics.average_age}
+          Distribution for 0:{' '}
+          {JSON.stringify(props.poll.results.analytics.genders[0])}
+          Distribution for 1:{' '}
+          {JSON.stringify(props.poll.results.analytics.genders[1])}
         </>
-      }
+      )}
     </div>
   );
 }

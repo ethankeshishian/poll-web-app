@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { Actions } from '../reducer';
 
 function ProfilePage(props: any) {
-  console.log(props.key)
+  console.log(props.key);
   //replace with name from backend
   const getName = (name: string) => {
     return <span className="profile-user-name bold">{name}</span>;
@@ -28,7 +28,7 @@ function ProfilePage(props: any) {
 
   const [UTCDate, setUTCDate]: any = useState(
     new Date().setUTCHours(0, 0, 0, 0)
-  )
+  );
 
   const handleCalendarClick = (e: any) => {
     setCalendarDate(e.toLocaleDateString('en-US', options));
@@ -56,25 +56,29 @@ function ProfilePage(props: any) {
           />
         </div>
         <div>
-          {props.allPolls[UTCDate] && 
-          <>
-            <PollContainer
-              poll={props.allPolls[UTCDate]}
-              mainpoll={false}
-              date={calendarDate}
-              respond={props.respond}
-              previous={true}
-              usersVote={props.allPolls[UTCDate].results.responses[props.username] ?
-                props.allPolls[UTCDate].results.responses[props.username].response :
-                null}
-            />
-            <CommentSection
-              respond={null}
-              comments={props.allPolls[UTCDate].comments}
-              addcomment={false}
-            />
-          </>
-          }
+          {props.allPolls[UTCDate] && (
+            <>
+              <PollContainer
+                poll={props.allPolls[UTCDate]}
+                mainpoll={false}
+                date={calendarDate}
+                respond={props.respond}
+                previous={true}
+                usersVote={
+                  props.allPolls[UTCDate].results.responses[props.username]
+                    ? props.allPolls[UTCDate].results.responses[props.username]
+                        .response
+                    : null
+                }
+                isOld={true}
+              />
+              <CommentSection
+                respond={null}
+                comments={props.allPolls[UTCDate].comments}
+                addcomment={false}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -87,7 +91,7 @@ const mapStateToProps = (state: any) => {
     allPolls: state.Polls.get('all'),
     user: state.Account.get('user'),
     error: state.Account.get('error'),
-    username: state.Account.get('key').username
+    username: state.Account.get('key').username,
   };
 };
 

@@ -13,6 +13,7 @@ function PollButton(props: {
   animateNext: boolean;
   setAnimateFrom0: (val: boolean) => void;
   setAnimateNext: (val: boolean) => void;
+  isOld: boolean;
 }) {
   const prevVotePercentRef = useRef(0);
   useEffect(() => {
@@ -30,6 +31,7 @@ function PollButton(props: {
     (100 - prevVotePercentage).toString() + '%';
 
   const handleClick = (e: any) => {
+    if (props.isOld) return;
     if (props.onClick) props.onClick(e);
     if (!props.animateFrom0) props.setAnimateNext(true);
     if (props.hasVoted) props.setAnimateFrom0(false);
@@ -38,23 +40,7 @@ function PollButton(props: {
      Using styled-components to add variables and keyframes to CSS;
      Impossible otherwise. */
   let CSSKeyframes: any;
-  if (props.animateNext) {
-    CSSKeyframes = keyframes`
-      0% {
-        background-position: ${cssPrevVotePercentage} bottom;
-      }
-      100% {
-        background-position: ${cssVotePercentage} bottom;
-      }`;
-  } else if (props.hasVoted && !props.animateFrom0) {
-    CSSKeyframes = keyframes`
-      0% {
-        background-position: ${cssPrevVotePercentage} bottom;
-      }
-      100% {
-        background-position: ${cssVotePercentage} bottom;
-      }`;
-  } else {
+  if (props.isOld) {
     CSSKeyframes = keyframes`
         0% {
           background-position: 100 bottom;
@@ -62,10 +48,40 @@ function PollButton(props: {
         100% {
           background-position: ${cssVotePercentage} bottom;
         }`;
+  } else {
+    if (props.animateNext) {
+      CSSKeyframes = keyframes`
+      0% {
+        background-position: ${cssPrevVotePercentage} bottom;
+      }
+      100% {
+        background-position: ${cssVotePercentage} bottom;
+      }`;
+    } else if (props.hasVoted && !props.animateFrom0) {
+      CSSKeyframes = keyframes`
+      0% {
+        background-position: ${cssPrevVotePercentage} bottom;
+      }
+      100% {
+        background-position: ${cssVotePercentage} bottom;
+      }`;
+    } else {
+      CSSKeyframes = keyframes`
+        0% {
+          background-position: 100 bottom;
+        }
+        100% {
+          background-position: ${cssVotePercentage} bottom;
+        }`;
+    }
   }
 
   const animation = () =>
-    props.hasVoted
+    props.isOld
+      ? css`
+          ${CSSKeyframes} 1s ease-out 1 forwards;
+        `
+      : props.hasVoted
       ? css`
           ${CSSKeyframes} 1s ease-out 1 forwards;
         `
