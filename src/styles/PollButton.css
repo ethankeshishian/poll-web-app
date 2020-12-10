@@ -26,6 +26,7 @@
 .add-animation {
   animation: 1s ease-out 1 slideInFromLeft forwards;
 }
+
 .pollbutton-table-question {
   width: 100%;
   text-align: left;
@@ -36,4 +37,24 @@
   /* "sub" works because it lowers the icon */
   vertical-align: sub;
   display: inline;
+}
+
+@media (max-width: 420px) {
+  .pollbutton-table-question {
+    font-size: 18px;
+    padding-left: 10px;
+  }
+
+  .pollbutton-icon {
+    font-size: 18px;
+    margin-left: -20px;
+  }
+
+  .percent {
+    font-size: 15px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding-left: 20px;
+  }
+
 }

@@ -61,7 +61,7 @@ function PollButton(props: {
         }
         style={styles}
       > */}
-      <StyledButton onClick={props.onClick}>
+      <StyledButton className ="button" onClick={props.onClick}>
         <table className="pollbutton-text">
           <tr className="pollbutton-table">
             <td className="pollbutton-icon">
@@ -100,7 +100,7 @@ function PollButton(props: {
               )}
             </td>
             <td className="pollbutton-table-question">{props.question}</td>
-            <td>{votePercentage.toString() + '%'}</td>
+            <td className="percent">{votePercentage.toString() + '%'}</td>
           </tr>
         </table>
       </StyledButton>
