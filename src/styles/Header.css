@@ -9,7 +9,7 @@
 
 .left {
   margin-right: auto;
-  margin-left: 30px;
+  margin-left: 20px;
 }
 
 .header-link {
@@ -24,6 +24,7 @@
 .right:hover {
   text-decoration: underline;
   text-decoration-color: #f26475;
+  color: #f26475
 }
 
 .icon {

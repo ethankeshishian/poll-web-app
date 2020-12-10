@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { Actions } from '../reducer';
 
 function ProfilePage(props: any) {
+
+  console.log(props.key)
   //replace with name from backend
   const getName = (name: string) => {
     return <span className="profile-user-name bold">{name}</span>;
@@ -62,6 +64,10 @@ function ProfilePage(props: any) {
               mainpoll={false}
               date={calendarDate}
               respond={props.respond}
+              previous={true}
+              userVote={props.allPolls[UTCDate].results.responses[props.username] ?
+                props.allPolls[UTCDate].results.responses[props.username].response :
+                null}
             />
             <CommentSection
               respond={null}
@@ -82,6 +88,7 @@ const mapStateToProps = (state: any) => {
     allPolls: state.Polls.get('all'),
     user: state.Account.get('user'),
     error: state.Account.get('error'),
+    username: state.Account.get('key').username
   };
 };
 

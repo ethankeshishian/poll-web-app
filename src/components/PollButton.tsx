@@ -39,7 +39,7 @@ function PollButton(props: {
       /* transition: all 0.5s ease-out; */
       color: white;
       border-radius: 20px;
-      padding: 20px 40px;
+      padding: 10px 40px;
       width: 100%;
       display: flex;
       flex-direction: column;
