@@ -17,7 +17,7 @@ function SuggestionBox(props : any) {
     <Background />
     <div className="popup-window">
       <button className="close-window" onClick={props.hideSuggestions}>X</button>
-      <h3 className="header">Vote for Tomorrow's Poll</h3>
+      <h3 className="header">Tomorrow's Poll</h3>
       {props.ourVote && <h4 className="sub-header">You've already voted for the following poll:</h4>}
 
         {props.allSuggestions.map((suggestion: any, index: number) => {
@@ -30,7 +30,7 @@ function SuggestionBox(props : any) {
 
         {!props.ourVote &&
         <>
-          <h4>Or, Suggest your own poll!</h4>
+          <h4 className="suggest-header">Have a different suggestion? Submit it here:</h4>
 
           <CustomSuggestion></CustomSuggestion>
 
