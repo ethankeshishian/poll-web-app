@@ -15,3 +15,10 @@
   width: 846px;
   height: 250px;
 }
+
+@media (max-width: 420px) {
+  .about-text-box {
+    width: 90vw; 
+    margin-bottom: 20px;
+  }
+}

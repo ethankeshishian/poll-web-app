@@ -30,3 +30,26 @@
 .icon {
   padding-left: 20px;
 }
+
+/* Mobile Header */
+@media (max-width: 420px) {
+  .header-link {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .right {
+    margin-right: 10px;
+  }
+
+  .left {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding-left: 20px;
+  }
+}

@@ -6,3 +6,13 @@
 .old-question {
   font-size: 24px;
 }
+
+@media (max-width: 420px) {
+  .question {
+    font-size: 20px;
+  }
+
+  .old-question {
+    font-size: 15px;
+  }
+}

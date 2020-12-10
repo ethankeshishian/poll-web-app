@@ -6,3 +6,11 @@
   margin-right: 40px;
   margin-top: 80px;
 }
+
+@media (max-width: 420px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+}

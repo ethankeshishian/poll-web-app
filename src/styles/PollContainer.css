@@ -27,3 +27,14 @@
 .old-title {
   margin: 0;
 }
+
+@media (max-width: 420px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .footer-title {
+    padding-top: 20px;
+    font-size: 18px;
+  }
+}

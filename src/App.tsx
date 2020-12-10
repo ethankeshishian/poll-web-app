@@ -12,7 +12,6 @@ import { Actions } from './reducer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App(props: any) {
-
   // Check if the attributes for a user are submitted (show popup if not)
   const [attributesSubmitted, attributes] = useState(true);
 
@@ -26,9 +25,9 @@ function App(props: any) {
 
   useEffect(() => {
     if (props.comment) {
-      props.latest(); 
+      props.latest();
     }
-  }, [props.comment])
+  }, [props.comment]);
 
   useEffect(() => {
     if (props.user) {
@@ -38,40 +37,38 @@ function App(props: any) {
         attributes(true);
       }
     }
-  }, [props.user])
+  }, [props.user]);
 
   return (
     <div className="App">
-        <Router>
-          <Header />
-          <div className="page-container">
-            <Switch>
-              <Route exact path="/" component={HomePage} />
-              <Route exact path="/profile" render={() => (
-                props.user ? (
-                  <ProfilePage />
-                ) : props.oauth()
-              )} />
-              <Route exact path="/about" component={AboutPage} />
-            </Switch>
-          </div>
-        </Router>
+      <Router>
+        <Header />
+        <div className="page-container">
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route
+              exact
+              path="/profile"
+              render={() => (props.user ? <ProfilePage /> : props.oauth())}
+            />
+            <Route exact path="/about" component={AboutPage} />
+          </Switch>
+        </div>
+      </Router>
 
-        {!attributesSubmitted &&
+      {!attributesSubmitted && (
         <div>
           <MoreInfo />
           <br />
         </div>
-        }   
+      )}
 
-        {
-          props.showSuggestions &&
-          <div>
-            <SuggestionsBox />
-            <br />
-          </div>
-        }
-        
+      {props.showSuggestions && (
+        <div>
+          <SuggestionsBox />
+          <br />
+        </div>
+      )}
     </div>
   );
 }
@@ -81,7 +78,7 @@ const mapStateToProps = (state: any) => {
     user: state.Account.get('user'),
     error: state.Account.get('error'),
     comment: state.Polls.get('comment'),
-    showSuggestions: state.Suggestions.get('showSuggestions')
+    showSuggestions: state.Suggestions.get('showSuggestions'),
   };
 };
 
@@ -104,7 +101,7 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     allSuggestions: () => {
       dispatch(Actions.suggestion.allSuggestions());
-    }
+    },
   };
 };
 
