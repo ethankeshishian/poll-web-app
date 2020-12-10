@@ -1,4 +1,10 @@
 /* Amplify Params - DO NOT EDIT
+	AUTH_CS97POLLWEBAPPA7BC17B0_USERPOOLID
+	ENV
+	REGION
+	STORAGE_POLLSDYNAMODB_ARN
+	STORAGE_POLLSDYNAMODB_NAME
+Amplify Params - DO NOT EDIT *//* Amplify Params - DO NOT EDIT
 	ENV
 	REGION
 	STORAGE_POLLSDYNAMODB_ARN
@@ -9,6 +15,9 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
+const cognitoID = new AWS.CognitoIdentityServiceProvider();
+
+const UserPoolId = process.env.AUTH_CS97POLLWEBAPPA7BC17B0_USERPOOLID
 
 let tableName = "polls";
 if (process.env.ENV && process.env.ENV !== "NONE") {
@@ -38,17 +47,50 @@ exports.handler = async (event) => {
   );
 
   // Choose a winner
-  const winningSuggestion = sanitizedSuggestions[0];
+  let winningSuggestion = sanitizedSuggestions[0];
+
+  // Give default poll if no suggestions
+  if (!winningSuggestion) {
+    winningSuggestion = {
+      poll_question: "Is this a placeholder question, because there were no suggestions?",
+      poll_responses: [
+        "Yeah, we had no suggestions sadly",
+        "No, this is some sad attempt at irony by Arek"
+      ]
+    }
+  }
 
   const latestPoll = await getLatestPoll();
 
+  let data;
   // close the previous poll
   if (latestPoll[0])
-    await closePreviousPoll(latestPoll[0].id);
+    data = await closePreviousPoll(latestPoll[0].id);
+
+  // compute results
+  if (data && data.Attributes) {
+    console.log(data);
+    await computeAnalytics(latestPoll[0].id, data.Attributes);
+  }
 
   // put winner into database
   await createPoll(winningSuggestion);
 };
+
+const computeAnalytics = async function(pollId, pollData) {
+  const responses = pollData.results.responses;
+  const responsesCount = responses.length
+
+  for (const Username in responses) {
+    const request = await cognitoID.adminGetUser({
+      UserPoolId,
+      Username
+    }, (err, data) => {
+      console.log("User Data:")
+      console.log(data);
+    });
+  }
+}
 
 const getSuggestedPolls = async function () {
   return new Promise((resolve, reject) => {
