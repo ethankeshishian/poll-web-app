@@ -14,7 +14,6 @@ const latest = () => async (dispatch: any, getState: any) => {
     poll = polls[0];
 
   const state = getState();
-  console.log(state);
   const key = state.Account.get("key");
 
   if (key) {

@@ -43,10 +43,11 @@ function PollContainer(props: any) {
         votes={props.poll.results ? props.poll.results.responses_totals : null}
         usersVote={props.usersVote}
       />
+      {!props.previous &&
       <div className="poll-footer">
-        <h3 className="footer-title" onClick={() => {}}>
+        {/* <h3 className="footer-title" onClick={() => {}}>
           VIEW DETAILED RESULTS
-        </h3>
+        </h3> */}
         <h3
           className="footer-title"
           onClick={() => (props.user ? props.showSuggestions() : props.oauth())}
@@ -54,6 +55,7 @@ function PollContainer(props: any) {
           VOTE FOR TOMORROW'S POLL
         </h3>
       </div>
+      }
     </div>
   );
 }
