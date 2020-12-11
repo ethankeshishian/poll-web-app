@@ -58,5 +58,5 @@
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "dependsOn": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/,https://pollify.xyz/\"],\"LogoutURLs\":[\"http://localhost:3000/,https://pollify.xyz/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/,https://www.pollify.xyz/\"],\"LogoutURLs\":[\"http://localhost:3000/,https://www.pollify.xyz/\"]}"
 }
