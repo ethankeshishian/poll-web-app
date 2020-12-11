@@ -16,7 +16,6 @@ function ProfilePage(props: any) {
   const getName = (name: string) => {
     return <span className="profile-user-name bold">{name}</span>;
   };
-
   var options = {
     year: 'numeric',
     month: 'long',
@@ -25,7 +24,6 @@ function ProfilePage(props: any) {
   const [calendarDate, setCalendarDate]: any = useState(
     new Date().toLocaleDateString('en-US', options)
   );
-
   const [UTCDate, setUTCDate]: any = useState(
     new Date().setUTCHours(0, 0, 0, 0)
   );
@@ -34,7 +32,16 @@ function ProfilePage(props: any) {
     setCalendarDate(e.toLocaleDateString('en-US', options));
     setUTCDate(new Date(e).setUTCHours(0, 0, 0, 0));
   };
-
+  const getYesterday = () => {
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
+    return date;
+  };
+  const [yesterday, setYesterday] = useState(getYesterday());
+  //runs on first render to fetch initial information from redux
+  useEffect(() => {
+    handleCalendarClick(yesterday);
+  }, []);
   return (
     <div className="profile-page">
       <div className="profile-heading">
@@ -51,7 +58,8 @@ function ProfilePage(props: any) {
           <Calendar
             onChange={(e) => handleCalendarClick(e)}
             className=".profile-graph"
-            maxDate={new Date()}
+            maxDate={yesterday}
+            defaultValue={yesterday}
             calendarType="US" // Week starts on Sunday instead of Monday
           />
         </div>
