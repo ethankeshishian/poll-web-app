@@ -23,11 +23,12 @@ function ProfilePage(props: any) {
     day: 'numeric',
   };
   const [calendarDate, setCalendarDate]: any = useState(
-    new Date().toLocaleDateString('en-US', options)
+    new Date(new Date().setDate(new Date().getDate() - 1)).toLocaleDateString('en-US', options)
   );
 
+
   const [UTCDate, setUTCDate]: any = useState(
-    new Date().setUTCHours(0, 0, 0, 0)
+    new Date(new Date().setUTCDate(new Date().getUTCDate() - 2)).setUTCHours(0, 0, 0, 0)
   );
 
   const handleCalendarClick = (e: any) => {
@@ -53,6 +54,7 @@ function ProfilePage(props: any) {
             className=".profile-graph"
             maxDate={new Date()}
             calendarType="US" // Week starts on Sunday instead of Monday
+            defaultValue={new Date(new Date().setDate(new Date().getDate() - 1))}
           />
         </div>
         <div>
