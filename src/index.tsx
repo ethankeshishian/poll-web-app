@@ -7,8 +7,12 @@ import reportWebVitals from './reportWebVitals';
 
 import { store } from './reducer/index';
 
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { Auth, API } from 'aws-amplify';
 import awsconfig from './aws-exports';
+
+Amplify.register(API)
+Amplify.register(Auth)
+
 Amplify.configure(awsconfig);
 
 
