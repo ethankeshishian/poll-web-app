@@ -1,10 +1,4 @@
 /* Amplify Params - DO NOT EDIT
-	AUTH_CS97POLLWEBAPPA7BC17B0_USERPOOLID
-	ENV
-	REGION
-	STORAGE_POLLSDYNAMODB_ARN
-	STORAGE_POLLSDYNAMODB_NAME
-Amplify Params - DO NOT EDIT *//* Amplify Params - DO NOT EDIT
 	ENV
 	REGION
 	STORAGE_POLLSDYNAMODB_ARN
@@ -51,13 +45,7 @@ exports.handler = async (event) => {
 
   // Give default poll if no suggestions
   if (!winningSuggestion) {
-    winningSuggestion = {
-      poll_question: "Is this a placeholder question, because there were no suggestions?",
-      poll_responses: [
-        "Yeah, we had no suggestions sadly",
-        "No, this is some sad attempt at irony by Arek"
-      ]
-    }
+    winningSuggestion = getDefaultPoll();
   }
 
   const latestPoll = await getLatestPoll();
@@ -69,7 +57,6 @@ exports.handler = async (event) => {
 
   // compute results
   if (data && data.Attributes) {
-    console.log(data);
     await computeAnalytics(latestPoll[0].id, data.Attributes);
   }
 
@@ -163,6 +150,16 @@ const computeAnalytics = async function(pollId, pollData) {
   });
 
 });
+}
+
+const getDefaultPoll = function() {
+  return {
+    poll_question: "Is this a placeholder question, because there were no suggestions?",
+    poll_responses: [
+      "Yeah, we had no suggestions sadly",
+      "No, this is some sad attempt at irony by Arek"
+    ]
+  }
 }
 
 const getUserAttributes = async function(Username) {
