@@ -16,10 +16,13 @@ function PollButton(props: {
   isOld: boolean;
 }) {
   const prevVotePercentRef = useRef(0);
+  const prevHasVotedRef = useRef(props.hasVoted);
   useEffect(() => {
     prevVotePercentRef.current = votePercentage;
+    prevHasVotedRef.current = props.hasVoted;
   });
   const prevVotePercentage = prevVotePercentRef.current;
+  const prevHasVoted = prevHasVotedRef.current;
 
   // Calculates percentage of votes given to this option
   const votePercentage: number = props.voteTotal
@@ -49,7 +52,7 @@ function PollButton(props: {
           background-position: ${cssVotePercentage} bottom;
         }`;
   } else {
-    if (props.animateNext) {
+    if (prevHasVoted) {
       CSSKeyframes = keyframes`
       0% {
         background-position: ${cssPrevVotePercentage} bottom;
@@ -57,14 +60,14 @@ function PollButton(props: {
       100% {
         background-position: ${cssVotePercentage} bottom;
       }`;
-    } else if (props.hasVoted && !props.animateFrom0) {
-      CSSKeyframes = keyframes`
-      0% {
-        background-position: ${cssPrevVotePercentage} bottom;
-      }
-      100% {
-        background-position: ${cssVotePercentage} bottom;
-      }`;
+      // } else if (props.hasVoted && !props.animateFrom0) {
+      //   CSSKeyframes = keyframes`
+      //   0% {
+      //     background-position: ${cssPrevVotePercentage} bottom;
+      //   }
+      //   100% {
+      //     background-position: ${cssVotePercentage} bottom;
+      //   }`;
     } else {
       CSSKeyframes = keyframes`
         0% {
