@@ -27,8 +27,8 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://pollify.xyz/",
-        "redirectSignOut": "https://pollify.xyz/",
+        "redirectSignIn": "https://www.pollify.xyz/",
+        "redirectSignOut": "https://www.pollify.xyz/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",
