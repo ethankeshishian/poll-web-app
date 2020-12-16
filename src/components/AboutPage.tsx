@@ -15,7 +15,7 @@ function AboutPage() {
         five UCLA students who wanted to provide a fun and engaging platform for
         people from all walks of life to share their opinions.
       </p>
-      <img className="icon-large" src="logo.png"></img>
+      <img className="icon-large" src="logo512.png"></img>
     </div>
   );
 }

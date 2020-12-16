@@ -16,18 +16,17 @@ function ProfilePage(props: any) {
   const getName = (name: string) => {
     return <span className="profile-user-name bold">{name}</span>;
   };
-
   var options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
   const [calendarDate, setCalendarDate]: any = useState(
-    new Date().toLocaleDateString('en-US', options)
+    new Date(new Date().setDate(new Date().getDate() - 1)).toLocaleDateString('en-US', options)
   );
 
   const [UTCDate, setUTCDate]: any = useState(
-    new Date().setUTCHours(0, 0, 0, 0)
+    new Date(new Date().setUTCDate(new Date().getUTCDate() - 2)).setUTCHours(0, 0, 0, 0)
   );
 
   const handleCalendarClick = (e: any) => {
@@ -51,8 +50,9 @@ function ProfilePage(props: any) {
           <Calendar
             onChange={(e) => handleCalendarClick(e)}
             className=".profile-graph"
-            maxDate={new Date()}
+            maxDate={new Date(new Date().setDate(new Date().getDate() - 1))}
             calendarType="US" // Week starts on Sunday instead of Monday
+            defaultValue={new Date(new Date().setDate(new Date().getDate() - 1))}
           />
         </div>
         <div>

@@ -28,6 +28,8 @@
 }
 
 .icon {
+  width: 64px;
+  height: 64px;
   padding-left: 20px;
 }
 
