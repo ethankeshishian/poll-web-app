@@ -100,6 +100,8 @@ const computeAnalytics = async function(pollId, pollData) {
     Other: 0
   };
 
+  const ages0 = [];
+  const ages1 = [];
   const ages = [];
 
   const IsValidGender = function(gender) {
@@ -108,29 +110,39 @@ const computeAnalytics = async function(pollId, pollData) {
 
   for (const Username in responses) {
     const attributes = await getUserAttributes(Username);
-    console.log("User Attributes:")
-    console.log(attributes);
+    const response = responses[Username].response;
 
     for (const attribute of attributes) {
       if (attribute.Name == "gender") {
         if (!IsValidGender(attribute.Value)) continue;
         gendersTotal[attribute.Value]++;
 
-        if (responses[Username].response === 0) {
+        if (response === 0) {
           genders0[attribute.Value]++;
-        } else if (responses[Username].response === 1) {
+        } else if (response === 1) {
           genders1[attribute.Value]++;
         }
       }
 
       if (attribute.Name == "custom:age") {
         ages.push(attribute.Value);
+        if (response === 0) {
+          ages0.push(attributes.Value);
+        } else if (response === 1) {
+          ages1.push(attributes.Value);
+        }
       }
     }
   }
 
-  const totalAge = ages.reduce((acc, c) => acc + c, 0); 
-  const averageAge = totalAge / ages.length;
+  const getAverage = (array) => {
+    const total = array.reduce((acc, c) => acc + c, 0);
+    return total / array.length;
+  }
+
+  const averageAgeTotal = getAverage(ages);
+  const averageAge0 = getAverage(ages0);
+  const averageAge1 = getAverage(ages1);
 
   let queryParams = {
     TableName: tableName,
@@ -145,7 +157,11 @@ const computeAnalytics = async function(pollId, pollData) {
           genders1
         ],
         genders_totals: gendersTotal,
-        average_age: averageAge
+        average_age_total: averageAgeTotal,
+        average_age: [
+          averageAge0,
+          averageAge1
+        ]
       }
     },
     ExpressionAttributeNames: {

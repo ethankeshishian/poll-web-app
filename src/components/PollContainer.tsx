@@ -61,10 +61,12 @@ function PollContainer(props: any) {
       )}
       {props.poll?.results?.analytics && (
         <>
-          Average Age on this Poll: {props.poll.results.analytics.average_age}
-          Distribution for 0:{' '}
+          Average Age on this Poll: {props.poll.results.analytics.average_age_total}
+          Average Age for 0: {props.poll.results.analytics.average_age[0]}
+          Average Age for 1: {props.poll.results.analytics.average_age[1]}
+          Gender Distribution for 0:{' '}
           {JSON.stringify(props.poll.results.analytics.genders[0])}
-          Distribution for 1:{' '}
+          Gender Distribution for 1:{' '}
           {JSON.stringify(props.poll.results.analytics.genders[1])}
         </>
       )}
