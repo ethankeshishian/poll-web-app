@@ -17,6 +17,10 @@ function Poll(props: {
     : 0;
   const [animateFrom0, setAnimateFrom0] = useState(true);
   const [animateNext, setAnimateNext] = useState(true);
+  const [voteClicks, setVoteClicks] = useState(0);
+  const handleVoteClicks = () => {
+    setVoteClicks(voteClicks + 1);
+  };
   // const [voteobj, setVoteobj] = useState({ votes: [1, 1], totalVotes: 2 });
   // const handleClick = () => {
   //   setVoteobj({
@@ -53,6 +57,8 @@ function Poll(props: {
             setAnimateFrom0={setAnimateFrom0}
             setAnimateNext={setAnimateNext}
             isOld={props.isOld}
+            voteClicks={voteClicks}
+            setVoteClicks={handleVoteClicks}
           />
         ))}
       {!props.options && (
@@ -68,6 +74,8 @@ function Poll(props: {
             setAnimateFrom0={setAnimateFrom0}
             setAnimateNext={setAnimateNext}
             isOld={props.isOld}
+            voteClicks={voteClicks}
+            setVoteClicks={handleVoteClicks}
           />
           <PollButton
             question="Loading..."
@@ -80,6 +88,8 @@ function Poll(props: {
             setAnimateFrom0={setAnimateFrom0}
             setAnimateNext={setAnimateNext}
             isOld={props.isOld}
+            voteClicks={voteClicks}
+            setVoteClicks={handleVoteClicks}
           />
         </>
       )}

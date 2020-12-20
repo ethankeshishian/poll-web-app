@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import '../styles/PollButton.css';
-
+//TODO: Try using previous state for poll?
 function PollButton(props: {
   question: string;
   onClick?: React.MouseEventHandler;
@@ -14,15 +14,18 @@ function PollButton(props: {
   setAnimateFrom0: (val: boolean) => void;
   setAnimateNext: (val: boolean) => void;
   isOld: boolean;
+  voteClicks: number;
+  setVoteClicks: () => void;
 }) {
   const prevVotePercentRef = useRef(0);
-  const prevHasVotedRef = useRef(props.hasVoted);
   useEffect(() => {
     prevVotePercentRef.current = votePercentage;
-    prevHasVotedRef.current = props.hasVoted;
   });
+  useEffect(() => {
+    //will run once
+    if (props.hasVoted) props.setVoteClicks();
+  }, []);
   const prevVotePercentage = prevVotePercentRef.current;
-  const prevHasVoted = prevHasVotedRef.current;
 
   // Calculates percentage of votes given to this option
   const votePercentage: number = props.voteTotal
@@ -38,6 +41,7 @@ function PollButton(props: {
     if (props.onClick) props.onClick(e);
     if (!props.animateFrom0) props.setAnimateNext(true);
     if (props.hasVoted) props.setAnimateFrom0(false);
+    props.setVoteClicks();
   };
   /* Creating an animated button class with keyframes.
      Using styled-components to add variables and keyframes to CSS;
@@ -52,7 +56,7 @@ function PollButton(props: {
           background-position: ${cssVotePercentage} bottom;
         }`;
   } else {
-    if (prevHasVoted) {
+    if (props.voteClicks >= 2) {
       CSSKeyframes = keyframes`
       0% {
         background-position: ${cssPrevVotePercentage} bottom;
@@ -60,14 +64,6 @@ function PollButton(props: {
       100% {
         background-position: ${cssVotePercentage} bottom;
       }`;
-      // } else if (props.hasVoted && !props.animateFrom0) {
-      //   CSSKeyframes = keyframes`
-      //   0% {
-      //     background-position: ${cssPrevVotePercentage} bottom;
-      //   }
-      //   100% {
-      //     background-position: ${cssVotePercentage} bottom;
-      //   }`;
     } else {
       CSSKeyframes = keyframes`
         0% {
