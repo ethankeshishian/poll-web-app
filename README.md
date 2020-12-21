@@ -1,6 +1,10 @@
+# Pollify - Live Demo
+
+View our presentation on YouTube at [https://youtu.be/nZJZJSu0YCg](https://youtu.be/nZJZJSu0YCg).
+
 # Viewing the app
 
-The app is hosted at [pollify.xyz](http://localhost:3000). To download a copy of the source code and run the app locally, follow the instructions in the "Running app locally" section.
+The app is hosted at [pollify.xyz](https://pollify.xyz). To download a copy of the source code and run the app locally, follow the instructions in the "Running app locally" section.
 
 # Running app locally
 

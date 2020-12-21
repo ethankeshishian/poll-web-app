@@ -1,0 +1,10 @@
+.demographic-text {
+  text-align: center;
+}
+.demographic-button-container {
+  display: flex;
+  flex-direction: column;
+}
+.demographic-button-caption {
+  justify-content: center;
+}

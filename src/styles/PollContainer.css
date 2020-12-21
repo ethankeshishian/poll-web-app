@@ -1,6 +1,6 @@
 .main-poll {
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: flex-start;
   flex-direction: column;
 }
@@ -37,4 +37,11 @@
     padding-top: 20px;
     font-size: 18px;
   }
+}
+.demographics-title {
+  font-size: 24px;
+  padding-bottom: 0px;
+  text-align: left;
+}
+.demographics-container {
 }
